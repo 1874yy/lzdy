@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<html lang="zh-CN"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>兰舟渡月</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600&family=Noto+Serif+TC:wght@400;600;700&family=Zhi+Mang+Xing&display=swap" rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600&amp;family=Noto+Serif+TC:wght@400;600;700&amp;family=Zhi+Mang+Xing&amp;display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #141416; 
@@ -269,8 +267,17 @@
     color: var(--bg);
   }
 
-  /* ================= 折叠说明区域 ================= */
-  /* 这里不再使用 display: none，全部交给 JS 强制控制 style.display */
+  /* 强制取消特定位置按钮的换行 */
+  .btn-row {
+    display: flex;
+    flex-wrap: nowrap !important;
+    justify-content: center;
+    gap: 1.2rem;
+    margin-top: 0;
+    width: 100%;
+  }
+
+  /* ================= 折叠说明区域（现仅用于包裹内容，不再有折叠逻辑） ================= */
   .guide-collapse-wrapper {
     margin-top: 0;
     margin-bottom: 2rem;
@@ -279,48 +286,13 @@
     border-radius: 4px;
     text-align: left;
   }
-  .guide-toggle-btn {
-    width: 100%;
-    padding: 1rem;
-    background: transparent;
-    border: none;
-    color: var(--gold);
-    font-size: 0.95rem;
-    letter-spacing: 0.1em;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem;
-    transition: all 0.3s;
-    font-family: "Noto Serif SC", serif;
-    border-radius: 4px;
-  }
-  .guide-toggle-btn:hover {
-    background: rgba(176, 141, 88, 0.05);
-  }
-  .guide-toggle-btn::after {
-    content: "▼";
-    font-size: 0.7rem;
-    transition: transform 0.3s;
-  }
-  .guide-collapse-wrapper.is-open .guide-toggle-btn::after {
-    transform: rotate(180deg);
-  }
   .guide-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease-out;
-    padding: 0 1.5rem;
-  }
-  .guide-collapse-wrapper.is-open .guide-content {
-    max-height: 800px;
-    padding: 0 1.5rem 1.5rem 1.5rem;
-    border-top: 1px dashed rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
   }
   
   /* 折叠内容内部排版 */
-  .guide-item { margin-top: 1rem; }
+  .guide-item { margin-bottom: 1rem; }
+  .guide-item:last-child { margin-bottom: 0; }
   .guide-title { font-size: 0.95rem; color: var(--ink); font-weight: 600; display: flex; align-items: center; gap: 10px; margin-bottom: 0.5rem;}
   .guide-btn-link {
     display: inline-flex;
@@ -416,6 +388,11 @@
       width: 100%;
       box-sizing: border-box;
     }
+    /* 移动端强制按钮并排（如果空间够的话，这里是2个按钮的情况） */
+    .btn-row {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
   }
 </style>
 </head>
@@ -433,7 +410,7 @@
 <div class="toast" id="toastMsg">已复制微信号</div>
 
 <!-- ================= 1. 封面页 ================= -->
-<div class="page cover-screen active" id="page-cover">
+<div class="page cover-screen" id="page-cover">
   <div class="moon-glow"></div>
   <div class="verse-text">清风徐来，水波不兴。</div>
   <div class="art-wrapper">
@@ -451,7 +428,7 @@
 </div>
 
 <!-- ================= 2. 主站 (九宫格) ================= -->
-<div class="page main-site" id="page-main">
+<div class="page main-site active" id="page-main">
   <header class="site-header">
     <div class="brand-wrap">
       <div class="brand">兰舟渡月</div>
@@ -478,7 +455,7 @@
       <div class="card-num">05</div><div class="card-title">原创圈门槛</div><div class="card-desc">Originality Threshold</div><div class="card-seal"></div>
     </a>
     
-    <a href="https://c0ks-10f3p663a3.maozi.io/" target="_blank" class="card">
+    <a href="https://yuanchuangquan-3p663a3.maozi.io/" target="_blank" class="card">
       <div class="card-num">06</div><div class="card-title">从o开始</div><div class="card-desc">Start from O</div><div class="card-seal"></div>
     </a>
     
@@ -487,10 +464,10 @@
     </a>
     
     <a href="#" class="card">
-      <div class="card-num">08</div><div class="card-title">跑路回血区</div><div class="card-desc">Recycle & Recover</div><div class="card-seal"></div>
+      <div class="card-num">08</div><div class="card-title">跑路回血区</div><div class="card-desc">Recycle &amp; Recover</div><div class="card-seal"></div>
     </a>
     
-    <a href="https://yjgjz-10g3p663a3.maozi.io/" target="_blank" class="card">
+    <a href="https://pe1om3fro-yongjieidgjz-3p663a3.maozi.io/" target="_blank" class="card">
       <div class="card-num">09</div><div class="card-title">永劫工具站</div><div class="card-desc">Naraka Tools</div><div class="card-seal"></div>
     </a>
   </main>
@@ -526,25 +503,81 @@
       </a>
     </div>
 
-    <!-- 折叠须知模块 -->
-    <div class="guide-collapse-wrapper" id="guide-wrapper" style="display: none;">
-      <button class="guide-toggle-btn" id="guide-toggle-btn">展开约单须知</button>
-      <div class="guide-content" id="guide-content">
-        <!-- 动态注入内容 -->
-      </div>
-    </div>
-
+    <!-- 移除了顶部的独立折叠面板，须知现在由下方的格子直接渲染 -->
     <div class="price-board">
-      <div class="tab-panel active" id="bx-jianghu"></div>
-      <div class="tab-panel" id="bx-zhengchang"></div>
-      <div class="tab-panel" id="bx-hengban"></div>
-      <div class="tab-panel" id="bx-renjian"></div>
-      <div class="tab-panel" id="bx-oc"></div>
-      <div class="tab-panel" id="bx-qiansi"></div>
-      <div class="tab-panel" id="bx-teshu"></div>
-      <div class="tab-panel" id="bx-lianbi"></div>
-      <div class="tab-panel" id="bx-fengge"></div>
-      <div class="tab-panel" id="bx-manghe"></div>
+      <div class="tab-panel active" id="bx-jianghu">
+            <div class="guide-collapse-wrapper" style="margin-bottom: 2rem; display: block;">
+              <div class="guide-content">
+                <div class="guide-item">
+                  <div class="guide-title">1. 笔刷粗细说明</div>
+                  <div class="guide-text">
+                    <button class="guide-btn-link" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/KqGl/1000X1000/%E5%86%99%E5%AD%97%E5%88%B7%E7%B2%97%E7%BB%86.png', '笔刷粗细示例')">【笔刷粗细说明】点我查看示例</button>
+                  </div>
+                </div>
+                <div class="guide-item">
+                  <div class="guide-title">2. 红线粗细说明</div>
+                  <div class="guide-text">
+                    <button class="guide-btn-link" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/a6bO/1000X1000/%E7%BA%A2%E7%BA%BF%E7%B2%97%E7%BB%86.png', '红线粗细示例')">【红线粗细说明】点我查看示例</button>
+                  </div>
+                </div>
+                <div class="guide-item">
+                  <div class="guide-title">3. 约单说明</div>
+                  <div class="guide-text">【竖版江湖草】一键出图，除写错字外不予重写。草体分字，部分字草体是能认出是什么字的。大多数字都是和现代简体汉字是两模两样哦，请考虑清楚再下单！出图后婉拒以：认不出来/不像/有点像别的某字等理由要求重写和与退款。竖直排版。</div>
+                </div>
+              </div>
+            </div>
+          <div class="image-grid"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ezad0-3idkg4fi/%E7%AB%96%E7%89%88%E8%8D%89%E4%BD%93/%E8%8D%89%20%282%29.png" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ezad0-3idkg4fi/%E7%AB%96%E7%89%88%E8%8D%89%E4%BD%93/%E8%8D%89%20%282%29.png', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ezad0-3idkg4fi/%E7%AB%96%E7%89%88%E8%8D%89%E4%BD%93/%E8%8D%892.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ezad0-3idkg4fi/%E7%AB%96%E7%89%88%E8%8D%89%E4%BD%93/%E8%8D%892.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ezad0-3idkg4fi/%E7%AB%96%E7%89%88%E8%8D%89%E4%BD%93/%E8%8D%891.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ezad0-3idkg4fi/%E7%AB%96%E7%89%88%E8%8D%89%E4%BD%93/%E8%8D%891.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ezad0-3idkg4fi/%E7%AB%96%E7%89%88%E8%8D%89%E4%BD%93/%E8%8D%89%20%283%29.png" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ezad0-3idkg4fi/%E7%AB%96%E7%89%88%E8%8D%89%E4%BD%93/%E8%8D%89%20%283%29.png', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ezad0-3idkg4fi/%E7%AB%96%E7%89%88%E8%8D%89%E4%BD%93/%E8%8D%89%20%281%29.png" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ezad0-3idkg4fi/%E7%AB%96%E7%89%88%E8%8D%89%E4%BD%93/%E8%8D%89%20%281%29.png', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ezad0-3idkg4fi/%E7%AB%96%E7%89%88%E8%8D%89%E4%BD%93/%E7%AB%96%E7%89%88%E8%8D%89.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ezad0-3idkg4fi/%E7%AB%96%E7%89%88%E8%8D%89%E4%BD%93/%E7%AB%96%E7%89%88%E8%8D%89.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"></div><div class="action-btns btn-row"><button class="action-btn pay-code-btn" data-img="https://s1.tupianyun.cn/autoupload/nj2md/20261108/gmxf/780X440/%E6%A8%AA%E7%89%88%E7%AB%96%E7%89%88%E5%85%B1%E7%94%A8.jpg">查看微信收款码</button><a href="https://docs.qq.com/form/page/DVm1na2J0YXN6TXNM" target="_blank" class="action-btn secondary">点此登记</a></div></div>
+      <div class="tab-panel" id="bx-zhengchang">
+            <div class="guide-collapse-wrapper" style="margin-bottom: 2rem; display: block;">
+              <div class="guide-content">
+                <div class="guide-item">
+                  <div class="guide-title">1. 笔刷粗细说明</div>
+                  <div class="guide-text">
+                    <button class="guide-btn-link" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/KqGl/1000X1000/%E5%86%99%E5%AD%97%E5%88%B7%E7%B2%97%E7%BB%86.png', '笔刷粗细示例')">【笔刷粗细说明】点我查看示例</button>
+                  </div>
+                </div>
+                <div class="guide-item">
+                  <div class="guide-title">2. 红线粗细说明</div>
+                  <div class="guide-text">
+                    <button class="guide-btn-link" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/a6bO/1000X1000/%E7%BA%A2%E7%BA%BF%E7%B2%97%E7%BB%86.png', '红线粗细示例')">【红线粗细说明】点我查看示例</button>
+                  </div>
+                </div>
+                <div class="guide-item">
+                  <div class="guide-title">3. 约单说明</div>
+                  <div class="guide-text">【竖版正常体】一键出图，除写错字外不予重写。因部分字最后一笔原因可能无法实现小尾巴。竖直排版。</div>
+                </div>
+              </div>
+            </div>
+          <div class="image-grid"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ezad0-3idkg4fi/%E7%AB%96%E7%89%88%E8%8D%89%E4%BD%93/%E9%81%97%E6%AD%8C.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ezad0-3idkg4fi/%E7%AB%96%E7%89%88%E8%8D%89%E4%BD%93/%E9%81%97%E6%AD%8C.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ezad0-3idkg4fi/%E7%AB%96%E7%89%88%E8%8D%89%E4%BD%93/%E6%AD%A3%E5%B8%B82.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ezad0-3idkg4fi/%E7%AB%96%E7%89%88%E8%8D%89%E4%BD%93/%E6%AD%A3%E5%B8%B82.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ezad0-3idkg4fi/%E7%AB%96%E7%89%88%E8%8D%89%E4%BD%93/%E6%AD%A3%E5%B8%B81.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ezad0-3idkg4fi/%E7%AB%96%E7%89%88%E8%8D%89%E4%BD%93/%E6%AD%A3%E5%B8%B81.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ezad0-3idkg4fi/%E7%AB%96%E7%89%88%E8%8D%89%E4%BD%93/%E6%AD%A3%E5%B8%B8%20%283%29.png" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ezad0-3idkg4fi/%E7%AB%96%E7%89%88%E8%8D%89%E4%BD%93/%E6%AD%A3%E5%B8%B8%20%283%29.png', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ezad0-3idkg4fi/%E7%AB%96%E7%89%88%E8%8D%89%E4%BD%93/%E6%AD%A3%E5%B8%B8%20%281%29.png" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ezad0-3idkg4fi/%E7%AB%96%E7%89%88%E8%8D%89%E4%BD%93/%E6%AD%A3%E5%B8%B8%20%281%29.png', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ezad0-3idkg4fi/%E7%AB%96%E7%89%88%E8%8D%89%E4%BD%93/%E6%AD%A3%E5%B8%B8%20%282%29.png" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ezad0-3idkg4fi/%E7%AB%96%E7%89%88%E8%8D%89%E4%BD%93/%E6%AD%A3%E5%B8%B8%20%282%29.png', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"></div><div class="action-btns btn-row"><button class="action-btn pay-code-btn" data-img="https://s1.tupianyun.cn/autoupload/nj2md/20261108/gmxf/780X440/%E6%A8%AA%E7%89%88%E7%AB%96%E7%89%88%E5%85%B1%E7%94%A8.jpg">查看微信收款码</button><a href="https://docs.qq.com/form/page/DVm1na2J0YXN6TXNM" target="_blank" class="action-btn secondary">点此登记</a></div></div>
+      <div class="tab-panel" id="bx-hengban">
+            <div class="guide-collapse-wrapper" style="margin-bottom: 2rem; display: block;">
+              <div class="guide-content">
+                <div class="guide-item">
+                  <div class="guide-title">1. 笔刷粗细说明</div>
+                  <div class="guide-text">
+                    <button class="guide-btn-link" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/KqGl/1000X1000/%E5%86%99%E5%AD%97%E5%88%B7%E7%B2%97%E7%BB%86.png', '笔刷粗细示例')">【笔刷粗细说明】点我查看示例</button>
+                  </div>
+                </div>
+                <div class="guide-item">
+                  <div class="guide-title">2. 红线粗细说明</div>
+                  <div class="guide-text">
+                    <button class="guide-btn-link" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/a6bO/1000X1000/%E7%BA%A2%E7%BA%BF%E7%B2%97%E7%BB%86.png', '红线粗细示例')">【红线粗细说明】点我查看示例</button>
+                  </div>
+                </div>
+                <div class="guide-item">
+                  <div class="guide-title">3. 约单说明</div>
+                  <div class="guide-text">【横版系列】一键出图，除写错字外不予重写。可能会根据文字内容调整行草书写和简繁书写，如果不接受请在登记时提前注明。排版会略有错位。</div>
+                </div>
+              </div>
+            </div>
+          <div class="image-grid"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ey7vj-2mq2gm6a/%E6%A8%AA%E7%89%88/%E6%A8%AA%E7%89%88%20%287%29.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ey7vj-2mq2gm6a/%E6%A8%AA%E7%89%88/%E6%A8%AA%E7%89%88%20%287%29.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ey7vj-2mq2gm6a/%E6%A8%AA%E7%89%88/%E6%A8%AA%E7%89%88%20%285%29.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ey7vj-2mq2gm6a/%E6%A8%AA%E7%89%88/%E6%A8%AA%E7%89%88%20%285%29.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ey7vj-2mq2gm6a/%E6%A8%AA%E7%89%88/%E6%A8%AA%E7%89%88%20%283%29.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ey7vj-2mq2gm6a/%E6%A8%AA%E7%89%88/%E6%A8%AA%E7%89%88%20%283%29.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ey7vj-2mq2gm6a/%E6%A8%AA%E7%89%88/%E6%A8%AA%E7%89%88%20%281%29.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ey7vj-2mq2gm6a/%E6%A8%AA%E7%89%88/%E6%A8%AA%E7%89%88%20%281%29.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ey7vj-2mq2gm6a/%E6%A8%AA%E7%89%88/%E6%A8%AA%E7%89%88%20%2813%29.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ey7vj-2mq2gm6a/%E6%A8%AA%E7%89%88/%E6%A8%AA%E7%89%88%20%2813%29.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ey7vj-2mq2gm6a/%E6%A8%AA%E7%89%88/%E6%A8%AA%E7%89%88%20%2817%29.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ey7vj-2mq2gm6a/%E6%A8%AA%E7%89%88/%E6%A8%AA%E7%89%88%20%2817%29.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"></div><div class="action-btns btn-row"><button class="action-btn pay-code-btn" data-img="https://s1.tupianyun.cn/autoupload/nj2md/20261108/gmxf/780X440/%E6%A8%AA%E7%89%88%E7%AB%96%E7%89%88%E5%85%B1%E7%94%A8.jpg">查看微信收款码</button><a href="https://docs.qq.com/form/page/DVm1na2J0YXN6TXNM" target="_blank" class="action-btn secondary">点此登记</a></div></div>
+      <div class="tab-panel" id="bx-renjian"><div class="image-grid"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eyfuo-e0uf4ek7/%E4%BA%BA%E9%97%B4%E8%89%B2%E7%B3%BB%E5%88%97/%E9%9B%A8%E9%AD%84%E7%82%B9%E5%A6%86.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eyfuo-e0uf4ek7/%E4%BA%BA%E9%97%B4%E8%89%B2%E7%B3%BB%E5%88%97/%E9%9B%A8%E9%AD%84%E7%82%B9%E5%A6%86.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eyfuo-e0uf4ek7/%E4%BA%BA%E9%97%B4%E8%89%B2%E7%B3%BB%E5%88%97/%E9%87%91%E8%8A%92%E6%B5%B8%E7%B4%AB.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eyfuo-e0uf4ek7/%E4%BA%BA%E9%97%B4%E8%89%B2%E7%B3%BB%E5%88%97/%E9%87%91%E8%8A%92%E6%B5%B8%E7%B4%AB.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eyfuo-e0uf4ek7/%E4%BA%BA%E9%97%B4%E8%89%B2%E7%B3%BB%E5%88%97/%E9%87%91%E7%8C%8A%E5%90%90%E7%84%B0.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eyfuo-e0uf4ek7/%E4%BA%BA%E9%97%B4%E8%89%B2%E7%B3%BB%E5%88%97/%E9%87%91%E7%8C%8A%E5%90%90%E7%84%B0.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eyfuo-e0uf4ek7/%E4%BA%BA%E9%97%B4%E8%89%B2%E7%B3%BB%E5%88%97/%E8%BF%9C%E9%BB%9B%E7%83%A7%E6%99%9A.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eyfuo-e0uf4ek7/%E4%BA%BA%E9%97%B4%E8%89%B2%E7%B3%BB%E5%88%97/%E8%BF%9C%E9%BB%9B%E7%83%A7%E6%99%9A.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eyfuo-e0uf4ek7/%E4%BA%BA%E9%97%B4%E8%89%B2%E7%B3%BB%E5%88%97/%E8%93%9D%E5%85%B3%E6%8B%A5%E9%9B%AA.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eyfuo-e0uf4ek7/%E4%BA%BA%E9%97%B4%E8%89%B2%E7%B3%BB%E5%88%97/%E8%93%9D%E5%85%B3%E6%8B%A5%E9%9B%AA.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eyfuo-e0uf4ek7/%E4%BA%BA%E9%97%B4%E8%89%B2%E7%B3%BB%E5%88%97/%E8%8D%94%E8%82%89%E7%93%A6%E6%9D%BE.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eyfuo-e0uf4ek7/%E4%BA%BA%E9%97%B4%E8%89%B2%E7%B3%BB%E5%88%97/%E8%8D%94%E8%82%89%E7%93%A6%E6%9D%BE.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eyfuo-e0uf4ek7/%E4%BA%BA%E9%97%B4%E8%89%B2%E7%B3%BB%E5%88%97/%E7%BB%BF%E9%87%8E%E4%BB%99%E8%B8%AA.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eyfuo-e0uf4ek7/%E4%BA%BA%E9%97%B4%E8%89%B2%E7%B3%BB%E5%88%97/%E7%BB%BF%E9%87%8E%E4%BB%99%E8%B8%AA.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eyfuo-e0uf4ek7/%E4%BA%BA%E9%97%B4%E8%89%B2%E7%B3%BB%E5%88%97/%E5%8D%83%E9%87%8C%E6%B1%9F%E5%B1%B1.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eyfuo-e0uf4ek7/%E4%BA%BA%E9%97%B4%E8%89%B2%E7%B3%BB%E5%88%97/%E5%8D%83%E9%87%8C%E6%B1%9F%E5%B1%B1.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eyfuo-e0uf4ek7/%E4%BA%BA%E9%97%B4%E8%89%B2%E7%B3%BB%E5%88%97/%E5%B1%B1%E6%B5%B7%E7%BB%98%E5%8D%B7.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eyfuo-e0uf4ek7/%E4%BA%BA%E9%97%B4%E8%89%B2%E7%B3%BB%E5%88%97/%E5%B1%B1%E6%B5%B7%E7%BB%98%E5%8D%B7.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"></div><div class="action-btns btn-row"><button class="action-btn pay-code-btn" data-img="https://s1.tupianyun.cn/autoupload/nj2md/20261108/pq8O/780X440/%E4%BA%BA%E9%97%B4%E8%89%B2.jpg">查看微信收款码</button><a href="https://docs.qq.com/form/page/DVm1na2J0YXN6TXNM" target="_blank" class="action-btn secondary">点此登记</a></div></div>
+      <div class="tab-panel" id="bx-oc"><div class="image-grid"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7esyi7-wogsge3r/%E7%8B%AC%E5%AE%B6%E6%A8%A1%E6%9D%BF/%E6%9C%BA%E6%89%93%E6%99%AE%E9%80%9A%E6%AC%BE.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7esyi7-wogsge3r/%E7%8B%AC%E5%AE%B6%E6%A8%A1%E6%9D%BF/%E6%9C%BA%E6%89%93%E6%99%AE%E9%80%9A%E6%AC%BE.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7esyi7-wogsge3r/%E7%8B%AC%E5%AE%B6%E6%A8%A1%E6%9D%BF/%E6%9C%BA%E6%89%93%E7%8E%BB%E7%92%83%E6%AC%BE.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7esyi7-wogsge3r/%E7%8B%AC%E5%AE%B6%E6%A8%A1%E6%9D%BF/%E6%9C%BA%E6%89%93%E7%8E%BB%E7%92%83%E6%AC%BE.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7esyi7-wogsge3r/%E7%8B%AC%E5%AE%B6%E6%A8%A1%E6%9D%BF/%E6%89%8B%E5%86%99%E7%8E%BB%E7%92%83%E6%AC%BE.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7esyi7-wogsge3r/%E7%8B%AC%E5%AE%B6%E6%A8%A1%E6%9D%BF/%E6%89%8B%E5%86%99%E7%8E%BB%E7%92%83%E6%AC%BE.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7esyi7-wogsge3r/%E7%8B%AC%E5%AE%B6%E6%A8%A1%E6%9D%BF/%E6%89%8B%E5%86%99%E6%99%AE%E9%80%9A%E6%AC%BE.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7esyi7-wogsge3r/%E7%8B%AC%E5%AE%B6%E6%A8%A1%E6%9D%BF/%E6%89%8B%E5%86%99%E6%99%AE%E9%80%9A%E6%AC%BE.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7esyi7-wogsge3r/%E7%8B%AC%E5%AE%B6%E6%A8%A1%E6%9D%BF/%E4%BA%AE%E6%99%B6%E6%99%B6%EF%BC%9A%E6%9C%BA%E6%89%93%E7%8E%BB%E7%92%83%E6%AC%BE.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7esyi7-wogsge3r/%E7%8B%AC%E5%AE%B6%E6%A8%A1%E6%9D%BF/%E4%BA%AE%E6%99%B6%E6%99%B6%EF%BC%9A%E6%9C%BA%E6%89%93%E7%8E%BB%E7%92%83%E6%AC%BE.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7esyi7-wogsge3r/%E7%8B%AC%E5%AE%B6%E6%A8%A1%E6%9D%BF/%E4%BA%AE%E6%99%B6%E6%99%B6%EF%BC%9A%E6%89%8B%E5%86%99%E7%8E%BB%E7%92%83%E6%AC%BE.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7esyi7-wogsge3r/%E7%8B%AC%E5%AE%B6%E6%A8%A1%E6%9D%BF/%E4%BA%AE%E6%99%B6%E6%99%B6%EF%BC%9A%E6%89%8B%E5%86%99%E7%8E%BB%E7%92%83%E6%AC%BE.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7esyi7-wogsge3r/%E7%8B%AC%E5%AE%B6%E6%A8%A1%E6%9D%BF/%E4%BA%AE%E6%99%B6%E6%99%B6%EF%BC%9A%E6%9C%BA%E6%89%93%E6%99%AE%E9%80%9A%E6%AC%BE.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7esyi7-wogsge3r/%E7%8B%AC%E5%AE%B6%E6%A8%A1%E6%9D%BF/%E4%BA%AE%E6%99%B6%E6%99%B6%EF%BC%9A%E6%9C%BA%E6%89%93%E6%99%AE%E9%80%9A%E6%AC%BE.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7esyi7-wogsge3r/%E7%8B%AC%E5%AE%B6%E6%A8%A1%E6%9D%BF/%E4%BA%AE%E6%99%B6%E6%99%B6%EF%BC%9A%E6%89%8B%E5%86%99%E6%99%AE%E9%80%9A%E6%AC%BE.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7esyi7-wogsge3r/%E7%8B%AC%E5%AE%B6%E6%A8%A1%E6%9D%BF/%E4%BA%AE%E6%99%B6%E6%99%B6%EF%BC%9A%E6%89%8B%E5%86%99%E6%99%AE%E9%80%9A%E6%AC%BE.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"></div><div class="action-btns btn-row"><button class="action-btn pay-code-btn" data-img="https://s1.tupianyun.cn/autoupload/nj2md/20261108/jC1A/780X440/oc%E6%B0%B4%E5%8D%B0.jpg">查看微信收款码</button><a href="https://docs.qq.com/form/page/DVm1na2J0YXN6TXNM" target="_blank" class="action-btn secondary">点此登记</a></div></div>
+      <div class="tab-panel" id="bx-qiansi"><div class="section-note" style="text-align:center; margin-bottom: 2rem; color: var(--gold);">新款上架！</div><div class="image-grid"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ezad0-3idkg4fi/%E7%AB%96%E7%89%88%E8%8D%89%E4%BD%93/%E7%89%B5%E4%B8%9D%20%282%29.png" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ezad0-3idkg4fi/%E7%AB%96%E7%89%88%E8%8D%89%E4%BD%93/%E7%89%B5%E4%B8%9D%20%282%29.png', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ezad0-3idkg4fi/%E7%AB%96%E7%89%88%E8%8D%89%E4%BD%93/%E7%89%B5%E4%B8%9D%20%281%29.png" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ezad0-3idkg4fi/%E7%AB%96%E7%89%88%E8%8D%89%E4%BD%93/%E7%89%B5%E4%B8%9D%20%281%29.png', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"></div><div class="action-btns btn-row"><button class="action-btn pay-code-btn" data-img="https://s1.tupianyun.cn/autoupload/nj2md/20261108/va0Q/780X440/%E7%89%B5%E4%B8%9D%E5%92%8C%E5%85%B6%E4%BB%96.jpg">查看微信收款码</button><a href="https://docs.qq.com/form/page/DVm1na2J0YXN6TXNM" target="_blank" class="action-btn secondary">点此登记</a></div></div>
+      <div class="tab-panel" id="bx-teshu"><div class="image-grid"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eywpt-78e15bdl/%E7%89%B9%E6%AE%8A%E5%88%B7/%E7%8E%BB%E7%92%83%E6%B3%A1%E6%B3%A1%E7%B3%96.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eywpt-78e15bdl/%E7%89%B9%E6%AE%8A%E5%88%B7/%E7%8E%BB%E7%92%83%E6%B3%A1%E6%B3%A1%E7%B3%96.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eywpt-78e15bdl/%E7%89%B9%E6%AE%8A%E5%88%B7/%E9%8E%8F%E9%87%91%E5%B2%81%E6%9C%88.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eywpt-78e15bdl/%E7%89%B9%E6%AE%8A%E5%88%B7/%E9%8E%8F%E9%87%91%E5%B2%81%E6%9C%88.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eywpt-78e15bdl/%E7%89%B9%E6%AE%8A%E5%88%B7/%E9%8E%8F%E9%87%91%E5%B2%81%E6%9C%882.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eywpt-78e15bdl/%E7%89%B9%E6%AE%8A%E5%88%B7/%E9%8E%8F%E9%87%91%E5%B2%81%E6%9C%882.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eywpt-78e15bdl/%E7%89%B9%E6%AE%8A%E5%88%B7/%E4%BB%BF%E5%88%B6%E7%8E%BB%E7%92%83.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eywpt-78e15bdl/%E7%89%B9%E6%AE%8A%E5%88%B7/%E4%BB%BF%E5%88%B6%E7%8E%BB%E7%92%83.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eywpt-78e15bdl/%E7%89%B9%E6%AE%8A%E5%88%B7/%E6%97%A7%E6%AF%9B%E8%BE%B9.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eywpt-78e15bdl/%E7%89%B9%E6%AE%8A%E5%88%B7/%E6%97%A7%E6%AF%9B%E8%BE%B9.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eywpt-78e15bdl/%E7%89%B9%E6%AE%8A%E5%88%B7/%E6%98%9F%E8%BE%B0.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eywpt-78e15bdl/%E7%89%B9%E6%AE%8A%E5%88%B7/%E6%98%9F%E8%BE%B0.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"></div><div class="action-btns btn-row"><button class="action-btn pay-code-btn" data-img="https://s1.tupianyun.cn/autoupload/nj2md/20261108/zmDA/780X440/%E8%BF%9E%E7%AC%94%E7%AD%BE_%E7%89%B9%E6%AE%8A%E5%88%B7.jpg">查看微信收款码</button><a href="https://docs.qq.com/form/page/DVm1na2J0YXN6TXNM" target="_blank" class="action-btn secondary">点此登记</a></div></div>
+      <div class="tab-panel" id="bx-lianbi"><div class="section-note" style="text-align:center; margin-bottom: 2rem; color: var(--gold);">默认出图一张素体 发光和素材为随机赠送 婉拒指定</div><div class="image-grid"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ez322-i58taojg/%E8%8B%B1%E6%96%87/%E8%8B%B1%E5%86%99%20%282%29.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ez322-i58taojg/%E8%8B%B1%E6%96%87/%E8%8B%B1%E5%86%99%20%282%29.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ez322-i58taojg/%E8%8B%B1%E6%96%87/%E8%8B%B1%E5%86%99%20%281%29.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ez322-i58taojg/%E8%8B%B1%E6%96%87/%E8%8B%B1%E5%86%99%20%281%29.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ez322-i58taojg/%E8%8B%B1%E6%96%87/%E8%8B%B1%E5%86%99%20%285%29.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ez322-i58taojg/%E8%8B%B1%E6%96%87/%E8%8B%B1%E5%86%99%20%285%29.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ez322-i58taojg/%E8%8B%B1%E6%96%87/%E8%8B%B1%E5%86%99%20%287%29.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ez322-i58taojg/%E8%8B%B1%E6%96%87/%E8%8B%B1%E5%86%99%20%287%29.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ez322-i58taojg/%E8%8B%B1%E6%96%87/%E8%8B%B1%E5%86%99%20%288%29.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ez322-i58taojg/%E8%8B%B1%E6%96%87/%E8%8B%B1%E5%86%99%20%288%29.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ez322-i58taojg/%E8%8B%B1%E6%96%87/%E8%8B%B1%E5%86%99%20%289%29.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ez322-i58taojg/%E8%8B%B1%E6%96%87/%E8%8B%B1%E5%86%99%20%289%29.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"></div><div class="action-btns btn-row"><button class="action-btn pay-code-btn" data-img="https://s1.tupianyun.cn/autoupload/nj2md/20261108/zmDA/780X440/%E8%BF%9E%E7%AC%94%E7%AD%BE_%E7%89%B9%E6%AE%8A%E5%88%B7.jpg">查看微信收款码</button><a href="https://docs.qq.com/form/page/DVm1na2J0YXN6TXNM" target="_blank" class="action-btn secondary">点此登记</a></div></div>
+      <div class="tab-panel" id="bx-fengge"><div class="image-grid"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/CR3Y/2000X2000/%E9%A3%8E%E6%A0%BC%E7%AC%94%E5%88%B71.png" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/CR3Y/2000X2000/%E9%A3%8E%E6%A0%BC%E7%AC%94%E5%88%B71.png', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/XWTI/2000X2000/%E9%A3%8E%E6%A0%BC%E7%AC%94%E5%88%B72.png" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/XWTI/2000X2000/%E9%A3%8E%E6%A0%BC%E7%AC%94%E5%88%B72.png', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/SjCn/2000X2000/%E9%A3%8E%E6%A0%BC%E7%AC%94%E5%88%B73.png" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/SjCn/2000X2000/%E9%A3%8E%E6%A0%BC%E7%AC%94%E5%88%B73.png', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/N8pp/2000X2000/%E9%A3%8E%E6%A0%BC%E7%AC%94%E5%88%B74.png" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/N8pp/2000X2000/%E9%A3%8E%E6%A0%BC%E7%AC%94%E5%88%B74.png', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/28uU/2000X2000/%E9%A3%8E%E6%A0%BC%E7%AC%94%E5%88%B75.png" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/28uU/2000X2000/%E9%A3%8E%E6%A0%BC%E7%AC%94%E5%88%B75.png', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"></div><div class="action-btns btn-row"><button class="action-btn pay-code-btn" data-img="https://s1.tupianyun.cn/autoupload/nj2md/20261108/Wkr8/780X440/%E9%A3%8E%E6%A0%BC%E8%8B%B1%E5%86%99.jpg">查看微信收款码</button><a href="https://docs.qq.com/form/page/DVm1na2J0YXN6TXNM" target="_blank" class="action-btn secondary">点此登记</a></div></div>
+      <div class="tab-panel" id="bx-manghe"><div class="section-note" style="text-align:center; margin-bottom: 2rem; color: var(--gold);">只写1-4字哦，不写长句，多拍多付也不写哦</div><div class="image-grid"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eynfd-pwg3uwq6/%E8%AF%95%E5%88%B7%E7%9B%B2%E7%9B%92/%E8%AF%95%E5%88%B7%20%284%29.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eynfd-pwg3uwq6/%E8%AF%95%E5%88%B7%E7%9B%B2%E7%9B%92/%E8%AF%95%E5%88%B7%20%284%29.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eynfd-pwg3uwq6/%E8%AF%95%E5%88%B7%E7%9B%B2%E7%9B%92/%E8%AF%95%E5%88%B7%20%281%29.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eynfd-pwg3uwq6/%E8%AF%95%E5%88%B7%E7%9B%B2%E7%9B%92/%E8%AF%95%E5%88%B7%20%281%29.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eynfd-pwg3uwq6/%E8%AF%95%E5%88%B7%E7%9B%B2%E7%9B%92/%E8%AF%95%E5%88%B7%20%283%29.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eynfd-pwg3uwq6/%E8%AF%95%E5%88%B7%E7%9B%B2%E7%9B%92/%E8%AF%95%E5%88%B7%20%283%29.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eynfd-pwg3uwq6/%E8%AF%95%E5%88%B7%E7%9B%B2%E7%9B%92/%E8%AF%95%E5%88%B7%20%282%29.jpeg" class="example-img" alt="例图展示" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eynfd-pwg3uwq6/%E8%AF%95%E5%88%B7%E7%9B%B2%E7%9B%92/%E8%AF%95%E5%88%B7%20%282%29.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"></div><div class="action-btns btn-row"><button class="action-btn pay-code-btn" data-img="https://s1.tupianyun.cn/autoupload/nj2md/20261108/va0Q/780X440/%E7%89%B5%E4%B8%9D%E5%92%8C%E5%85%B6%E4%BB%96.jpg">查看微信收款码</button><a href="https://docs.qq.com/form/page/DVm1na2J0YXN6TXNM" target="_blank" class="action-btn secondary">点此登记</a></div></div>
     </div>
   </div>
 </div>
@@ -566,30 +599,56 @@
       <button class="tab-btn" data-target="sc-shangxin">上新赠</button>
     </div>
 
+    <!-- 将按钮区域和虚线全部移入 price-board 内部 -->
     <div class="price-board">
       <div class="tab-panel active" id="sc-longterm">
-        <div class="material-grid" id="grid-longterm"></div>
+        <div class="material-grid" id="grid-longterm"><div class="material-card">
+            <img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eqgzu-nzdaaumc/%E3%80%90%E7%B4%A0%E6%9D%90%E3%80%91%E9%95%BF%E6%9C%9F%E5%8F%AF%E8%B4%AD/%E4%BA%B2%E7%89%9B%E8%8A%B1.png" alt="牵牛花" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eqgzu-nzdaaumc/%E3%80%90%E7%B4%A0%E6%9D%90%E3%80%91%E9%95%BF%E6%9C%9F%E5%8F%AF%E8%B4%AD/%E4%BA%B2%E7%89%9B%E8%8A%B1.png', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div style=\'padding:2rem; color:var(--muted); font-size:0.8rem;\'&gt;加载失败&lt;/div&gt;'">
+            <div class="m-name">牵牛花</div>
+          </div><div class="material-card">
+            <img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eqgzu-nzdaaumc/%E3%80%90%E7%B4%A0%E6%9D%90%E3%80%91%E9%95%BF%E6%9C%9F%E5%8F%AF%E8%B4%AD/%E5%87%8C%E9%9C%84.png" alt="凌霄" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eqgzu-nzdaaumc/%E3%80%90%E7%B4%A0%E6%9D%90%E3%80%91%E9%95%BF%E6%9C%9F%E5%8F%AF%E8%B4%AD/%E5%87%8C%E9%9C%84.png', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div style=\'padding:2rem; color:var(--muted); font-size:0.8rem;\'&gt;加载失败&lt;/div&gt;'">
+            <div class="m-name">凌霄</div>
+          </div><div class="material-card">
+            <img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eqgzu-nzdaaumc/%E3%80%90%E7%B4%A0%E6%9D%90%E3%80%91%E9%95%BF%E6%9C%9F%E5%8F%AF%E8%B4%AD/%E6%B5%B7%E6%A3%A0.png" alt="海棠" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eqgzu-nzdaaumc/%E3%80%90%E7%B4%A0%E6%9D%90%E3%80%91%E9%95%BF%E6%9C%9F%E5%8F%AF%E8%B4%AD/%E6%B5%B7%E6%A3%A0.png', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div style=\'padding:2rem; color:var(--muted); font-size:0.8rem;\'&gt;加载失败&lt;/div&gt;'">
+            <div class="m-name">海棠</div>
+          </div><div class="material-card">
+            <img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eqgzu-nzdaaumc/%E3%80%90%E7%B4%A0%E6%9D%90%E3%80%91%E9%95%BF%E6%9C%9F%E5%8F%AF%E8%B4%AD/%E7%AB%AF%E5%8D%88.jpeg" alt="端午" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eqgzu-nzdaaumc/%E3%80%90%E7%B4%A0%E6%9D%90%E3%80%91%E9%95%BF%E6%9C%9F%E5%8F%AF%E8%B4%AD/%E7%AB%AF%E5%8D%88.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div style=\'padding:2rem; color:var(--muted); font-size:0.8rem;\'&gt;加载失败&lt;/div&gt;'">
+            <div class="m-name">端午</div>
+          </div><div class="material-card">
+            <img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eqgzu-nzdaaumc/%E3%80%90%E7%B4%A0%E6%9D%90%E3%80%91%E9%95%BF%E6%9C%9F%E5%8F%AF%E8%B4%AD/%E7%87%95%E5%AD%90%E4%BB%99%E9%B9%A4.png" alt="燕子仙鹤" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eqgzu-nzdaaumc/%E3%80%90%E7%B4%A0%E6%9D%90%E3%80%91%E9%95%BF%E6%9C%9F%E5%8F%AF%E8%B4%AD/%E7%87%95%E5%AD%90%E4%BB%99%E9%B9%A4.png', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div style=\'padding:2rem; color:var(--muted); font-size:0.8rem;\'&gt;加载失败&lt;/div&gt;'">
+            <div class="m-name">燕子仙鹤</div>
+          </div><div class="material-card">
+            <img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eqgzu-nzdaaumc/%E3%80%90%E7%B4%A0%E6%9D%90%E3%80%91%E9%95%BF%E6%9C%9F%E5%8F%AF%E8%B4%AD/%E8%8C%89%E8%8E%89.png" alt="茉莉" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eqgzu-nzdaaumc/%E3%80%90%E7%B4%A0%E6%9D%90%E3%80%91%E9%95%BF%E6%9C%9F%E5%8F%AF%E8%B4%AD/%E8%8C%89%E8%8E%89.png', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div style=\'padding:2rem; color:var(--muted); font-size:0.8rem;\'&gt;加载失败&lt;/div&gt;'">
+            <div class="m-name">茉莉</div>
+          </div><div class="material-card">
+            <img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eqgzu-nzdaaumc/%E3%80%90%E7%B4%A0%E6%9D%90%E3%80%91%E9%95%BF%E6%9C%9F%E5%8F%AF%E8%B4%AD/%E8%8D%B7.png" alt="荷" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7eqgzu-nzdaaumc/%E3%80%90%E7%B4%A0%E6%9D%90%E3%80%91%E9%95%BF%E6%9C%9F%E5%8F%AF%E8%B4%AD/%E8%8D%B7.png', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div style=\'padding:2rem; color:var(--muted); font-size:0.8rem;\'&gt;加载失败&lt;/div&gt;'">
+            <div class="m-name">荷</div>
+          </div></div>
       </div>
       <div class="tab-panel" id="sc-yiyuangou">
-        <div class="material-grid" id="grid-yiyuangou"></div>
+        <div class="material-grid" id="grid-yiyuangou"><div class="material-card">
+            <img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ese19-ysg314zn/%E3%80%90%E4%B8%80%E5%85%83%E8%B4%AD%E3%80%91%E7%BE%A4%E5%86%85%E7%A6%8F%E5%88%A9%E8%B4%AD/%E4%B8%80%E5%85%83%E8%B4%AD%E8%9D%B4%E8%9D%B6%E7%BB%93.png" alt="蝴蝶结" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7ese19-ysg314zn/%E3%80%90%E4%B8%80%E5%85%83%E8%B4%AD%E3%80%91%E7%BE%A4%E5%86%85%E7%A6%8F%E5%88%A9%E8%B4%AD/%E4%B8%80%E5%85%83%E8%B4%AD%E8%9D%B4%E8%9D%B6%E7%BB%93.png', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div style=\'padding:2rem; color:var(--muted); font-size:0.8rem;\'&gt;加载失败&lt;/div&gt;'">
+            <div class="m-name">蝴蝶结</div>
+          </div></div>
       </div>
       <div class="tab-panel" id="sc-huochairen">
-        <div class="material-grid" id="grid-huochairen"></div>
+        <div class="material-grid" id="grid-huochairen"><div class="material-card">
+            <img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7esk4g-ehaoxvrd/%E7%B4%A0%E6%9D%90/%E7%81%AB%E6%9F%B4%E4%BA%BA.jpeg" alt="火柴人" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7esk4g-ehaoxvrd/%E7%B4%A0%E6%9D%90/%E7%81%AB%E6%9F%B4%E4%BA%BA.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div style=\'padding:2rem; color:var(--muted); font-size:0.8rem;\'&gt;加载失败&lt;/div&gt;'">
+            <div class="m-name">火柴人</div>
+          </div></div>
       </div>
       <div class="tab-panel" id="sc-shangxin">
-        <div class="section-note" id="desc-shangxin" style="text-align:center; color:var(--gold); margin-bottom: 1.5rem;"></div>
-        <div class="image-grid" id="grid-shangxin"></div>
+        <div class="section-note" id="desc-shangxin" style="text-align:center; color:var(--gold); margin-bottom: 1.5rem;">往期，长期直购打包可获取：</div>
+        <div class="image-grid" id="grid-shangxin"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7es4l0-qkqn87td/%E3%80%90%E7%B4%A0%E6%9D%90%E8%B5%A0%E3%80%91%E7%B4%A0%E6%9D%90%E4%B8%8A%E6%96%B010%E6%97%A5%E5%86%85%E8%B4%AD%E5%85%A5%E5%8F%AF%E8%8E%B7%E8%B5%A0%E4%BB%BB%E4%B8%80/%E6%89%93%E5%8C%85%E8%B5%A0%20%284%29.png" class="example-img" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7es4l0-qkqn87td/%E3%80%90%E7%B4%A0%E6%9D%90%E8%B5%A0%E3%80%91%E7%B4%A0%E6%9D%90%E4%B8%8A%E6%96%B010%E6%97%A5%E5%86%85%E8%B4%AD%E5%85%A5%E5%8F%AF%E8%8E%B7%E8%B5%A0%E4%BB%BB%E4%B8%80/%E6%89%93%E5%8C%85%E8%B5%A0%20%284%29.png', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7es4l0-qkqn87td/%E3%80%90%E7%B4%A0%E6%9D%90%E8%B5%A0%E3%80%91%E7%B4%A0%E6%9D%90%E4%B8%8A%E6%96%B010%E6%97%A5%E5%86%85%E8%B4%AD%E5%85%A5%E5%8F%AF%E8%8E%B7%E8%B5%A0%E4%BB%BB%E4%B8%80/%E6%89%93%E5%8C%85%E8%B5%A0%20%285%29.png" class="example-img" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7es4l0-qkqn87td/%E3%80%90%E7%B4%A0%E6%9D%90%E8%B5%A0%E3%80%91%E7%B4%A0%E6%9D%90%E4%B8%8A%E6%96%B010%E6%97%A5%E5%86%85%E8%B4%AD%E5%85%A5%E5%8F%AF%E8%8E%B7%E8%B5%A0%E4%BB%BB%E4%B8%80/%E6%89%93%E5%8C%85%E8%B5%A0%20%285%29.png', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7es4l0-qkqn87td/%E3%80%90%E7%B4%A0%E6%9D%90%E8%B5%A0%E3%80%91%E7%B4%A0%E6%9D%90%E4%B8%8A%E6%96%B010%E6%97%A5%E5%86%85%E8%B4%AD%E5%85%A5%E5%8F%AF%E8%8E%B7%E8%B5%A0%E4%BB%BB%E4%B8%80/%E6%89%93%E5%8C%85%E8%B5%A0%20%283%29.png" class="example-img" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7es4l0-qkqn87td/%E3%80%90%E7%B4%A0%E6%9D%90%E8%B5%A0%E3%80%91%E7%B4%A0%E6%9D%90%E4%B8%8A%E6%96%B010%E6%97%A5%E5%86%85%E8%B4%AD%E5%85%A5%E5%8F%AF%E8%8E%B7%E8%B5%A0%E4%BB%BB%E4%B8%80/%E6%89%93%E5%8C%85%E8%B5%A0%20%283%29.png', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7es4l0-qkqn87td/%E3%80%90%E7%B4%A0%E6%9D%90%E8%B5%A0%E3%80%91%E7%B4%A0%E6%9D%90%E4%B8%8A%E6%96%B010%E6%97%A5%E5%86%85%E8%B4%AD%E5%85%A5%E5%8F%AF%E8%8E%B7%E8%B5%A0%E4%BB%BB%E4%B8%80/%E6%89%93%E5%8C%85%E8%B5%A0%20%281%29.png" class="example-img" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7es4l0-qkqn87td/%E3%80%90%E7%B4%A0%E6%9D%90%E8%B5%A0%E3%80%91%E7%B4%A0%E6%9D%90%E4%B8%8A%E6%96%B010%E6%97%A5%E5%86%85%E8%B4%AD%E5%85%A5%E5%8F%AF%E8%8E%B7%E8%B5%A0%E4%BB%BB%E4%B8%80/%E6%89%93%E5%8C%85%E8%B5%A0%20%281%29.png', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7es4l0-qkqn87td/%E3%80%90%E7%B4%A0%E6%9D%90%E8%B5%A0%E3%80%91%E7%B4%A0%E6%9D%90%E4%B8%8A%E6%96%B010%E6%97%A5%E5%86%85%E8%B4%AD%E5%85%A5%E5%8F%AF%E8%8E%B7%E8%B5%A0%E4%BB%BB%E4%B8%80/%E6%89%93%E5%8C%85%E8%B5%A0%20%282%29.png" class="example-img" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7es4l0-qkqn87td/%E3%80%90%E7%B4%A0%E6%9D%90%E8%B5%A0%E3%80%91%E7%B4%A0%E6%9D%90%E4%B8%8A%E6%96%B010%E6%97%A5%E5%86%85%E8%B4%AD%E5%85%A5%E5%8F%AF%E8%8E%B7%E8%B5%A0%E4%BB%BB%E4%B8%80/%E6%89%93%E5%8C%85%E8%B5%A0%20%282%29.png', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7es4l0-qkqn87td/%E3%80%90%E7%B4%A0%E6%9D%90%E8%B5%A0%E3%80%91%E7%B4%A0%E6%9D%90%E4%B8%8A%E6%96%B010%E6%97%A5%E5%86%85%E8%B4%AD%E5%85%A5%E5%8F%AF%E8%8E%B7%E8%B5%A0%E4%BB%BB%E4%B8%80/%E6%89%93%E5%8C%85%E8%B5%A0%20%281%29.jpeg" class="example-img" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7es4l0-qkqn87td/%E3%80%90%E7%B4%A0%E6%9D%90%E8%B5%A0%E3%80%91%E7%B4%A0%E6%9D%90%E4%B8%8A%E6%96%B010%E6%97%A5%E5%86%85%E8%B4%AD%E5%85%A5%E5%8F%AF%E8%8E%B7%E8%B5%A0%E4%BB%BB%E4%B8%80/%E6%89%93%E5%8C%85%E8%B5%A0%20%281%29.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"></div>
       </div>
-    </div>
 
-    <!-- 提货与付款区域 -->
-    <div id="sucai-action-area" style="margin-top: 3rem; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 2rem;">
-      <div class="action-btns" style="margin-bottom: 1rem;">
-        <button class="action-btn pay-code-btn" id="btn-sucai-pay">查看微信收款码</button>
-      </div>
-      <div class="action-btns">
-        <a href="#" id="btn-qq" target="_blank" class="action-btn qq">QQ提货</a>
-        <button id="btn-wechat" class="action-btn secondary">微信提货</button>
+      <!-- 融合进来的付款提货区域，去掉多余的上边框虚线，并且全部并排 -->
+      <div id="sucai-action-area" style="margin-top: 2rem;">
+        <div class="action-btns btn-row">
+          <button class="action-btn pay-code-btn" id="btn-sucai-pay" data-img="https://s1.tupianyun.cn/autoupload/nj2md/20261108/XXh5/780X440/%E7%B4%A0%E6%9D%90.jpg">查看微信收款码</button>
+          <a href="https://qm.qq.com/q/C6OZNioMak" id="btn-qq" target="_blank" class="action-btn qq">QQ提货</a>
+          <button id="btn-wechat" class="action-btn secondary">微信提货</button>
+        </div>
       </div>
     </div>
   </div>
@@ -606,21 +665,21 @@
     <p class="intro-text">匠心制封，定制属于你的故事。<br>点击下方小图可放大预览。</p>
 
     <div style="text-align: center; margin-bottom: 2rem;">
-      <a href="#" id="fengmian-xhs-link" target="_blank" style="display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: var(--gold); letter-spacing: 0.1em; text-decoration: none; border-bottom: 1px dashed var(--gold); padding-bottom: 0.2rem; transition: color 0.3s;">
+      <a href="https://xhslink.cn/o/AMVzSpqBekp" id="fengmian-xhs-link" target="_blank" style="display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: var(--gold); letter-spacing: 0.1em; text-decoration: none; border-bottom: 1px dashed var(--gold); padding-bottom: 0.2rem; transition: color 0.3s;">
         部分客单展示，更多客单封赏点我查看 <span style="font-size: 1rem;">↗</span>
       </a>
     </div>
 
+    <!-- 将按钮区域移入 price-board 内部 -->
     <div class="price-board">
-      <div class="image-grid" id="grid-fengmian"></div>
-    </div>
-
-    <div id="fengmian-action-area" style="margin-top: 3rem; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 2rem;">
-      <div class="action-btns" style="margin-bottom: 1rem;">
-        <button class="action-btn pay-code-btn" id="btn-fengmian-pay">查看微信收款码</button>
-      </div>
-      <div class="action-btns">
-        <a href="#" id="btn-fengmian-reg" target="_blank" class="action-btn secondary">点此登记约单</a>
+      <div class="image-grid" id="grid-fengmian"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/4k6r/1200X1200/%E5%B0%81%E8%B5%8F_%289%29.jpeg" class="example-img" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/4k6r/1200X1200/%E5%B0%81%E8%B5%8F_%289%29.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7et6zj-rru9h10m/%E5%B0%81%E8%B5%8F/%E5%B0%81%E8%B5%8F%20%288%29.jpeg" class="example-img" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7et6zj-rru9h10m/%E5%B0%81%E8%B5%8F/%E5%B0%81%E8%B5%8F%20%288%29.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7et6zj-rru9h10m/%E5%B0%81%E8%B5%8F/%E5%B0%81%E8%B5%8F%20%287%29.jpeg" class="example-img" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7et6zj-rru9h10m/%E5%B0%81%E8%B5%8F/%E5%B0%81%E8%B5%8F%20%287%29.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7et6zj-rru9h10m/%E5%B0%81%E8%B5%8F/%E5%B0%81%E8%B5%8F%20%286%29.jpeg" class="example-img" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7et6zj-rru9h10m/%E5%B0%81%E8%B5%8F/%E5%B0%81%E8%B5%8F%20%286%29.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7et6zj-rru9h10m/%E5%B0%81%E8%B5%8F/%E5%B0%81%E8%B5%8F%20%285%29.jpeg" class="example-img" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7et6zj-rru9h10m/%E5%B0%81%E8%B5%8F/%E5%B0%81%E8%B5%8F%20%285%29.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7et6zj-rru9h10m/%E5%B0%81%E8%B5%8F/%E5%B0%81%E8%B5%8F%20%284%29.jpeg" class="example-img" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7et6zj-rru9h10m/%E5%B0%81%E8%B5%8F/%E5%B0%81%E8%B5%8F%20%284%29.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7et6zj-rru9h10m/%E5%B0%81%E8%B5%8F/%E5%B0%81%E8%B5%8F%20%282%29.jpeg" class="example-img" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7et6zj-rru9h10m/%E5%B0%81%E8%B5%8F/%E5%B0%81%E8%B5%8F%20%282%29.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"><img src="https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7et6zj-rru9h10m/%E5%B0%81%E8%B5%8F/%E5%B0%81%E8%B5%8F%20%281%29.jpeg" class="example-img" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/folder-mw7et6zj-rru9h10m/%E5%B0%81%E8%B5%8F/%E5%B0%81%E8%B5%8F%20%281%29.jpeg', '点击空白处关闭，长按图片保存')" onerror="this.outerHTML='&lt;div class=\'section-note\' style=\'text-align:center; padding: 2rem 0;\'&gt;图片加载失败&lt;/div&gt;'"></div>
+      
+      <!-- 融合进来的付款登记区域，去掉多余的虚线，并且全部并排 -->
+      <div id="fengmian-action-area" style="margin-top: 2rem;">
+        <div class="action-btns btn-row">
+          <button class="action-btn pay-code-btn" id="btn-fengmian-pay" data-img="https://s1.tupianyun.cn/autoupload/nj2md/20261108/cGTg/780X440/%E5%B0%81%E9%9D%A2.jpg">查看微信收款码</button>
+          <a href="https://docs.qq.com/form/page/DVmxoc0hFbVBhY3F6" id="btn-fengmian-reg" target="_blank" class="action-btn secondary">点此登记约单</a>
+        </div>
       </div>
     </div>
   </div>
@@ -652,13 +711,13 @@
 
     <div class="price-board">
       <div class="tab-panel active" id="tab-hui">
-        <ul class="price-list" id="list-hui"></ul>
+        <ul class="price-list" id="list-hui"><li><span class="item-name">期会 or 月会</span><span class="item-price">0.02 / 张</span></li><li><span class="item-name">季会 or 半年会</span><span class="item-price">0.016 / 张</span></li><li><span class="item-name">年会</span><span class="item-price">0.013 / 张</span></li><li><span class="item-name">永会</span><span class="item-price">0.012 / 张</span></li></ul>
         <div class="section-note">默认拉单群 丨 出图有发图明细 丨 嫖会可作带预览明细（预览图请做好给我）丨 出图请自备psd 转psd按下方价格算</div>
       </div>
-      <div class="tab-panel" id="tab-san"><ul class="price-list" id="list-san"></ul></div>
-      <div class="tab-panel" id="tab-biao"><ul class="price-list" id="list-biao"></ul></div>
+      <div class="tab-panel" id="tab-san"><ul class="price-list" id="list-san"><li><span class="item-name">水印名片</span><span class="item-price">0.2 / 张</span></li><li><span class="item-name">全屏表情包预览二维码</span><span class="item-price">0.3 / 张</span></li></ul></div>
+      <div class="tab-panel" id="tab-biao"><ul class="price-list" id="list-biao"><li><span class="item-name">机标</span><span class="item-price">0.1 / 张</span></li><li><span class="item-name">手标</span><span class="item-price">0.9 / 张</span></li><li><span class="item-name">双标</span><span class="item-price">1 / 张</span></li><li><span class="item-name">长期合作（找我打标5次以上）</span><span class="item-price">0.6 双标</span></li></ul></div>
       <div class="tab-panel" id="tab-psd">
-        <ul class="price-list" id="list-psd"></ul>
+        <ul class="price-list" id="list-psd"><li><span class="item-name">一张含多个配件</span><span class="item-price">0.3 / 张</span></li><li><span class="item-name">一张一个配件</span><span class="item-price">0.2 / 张</span></li><li><span class="item-name">全屏素体</span><span class="item-price">0.2 / 张</span></li><li><span class="item-name">不重叠素体</span><span class="item-price">0.3 / 张</span></li><li><span class="item-name">全屏素体 + 效果</span><span class="item-price">0.5 / 张</span></li></ul>
         <div class="section-note">模板会嫖会免费转 PSD</div>
       </div>
       <div class="tab-panel" id="tab-cun">
@@ -683,11 +742,29 @@
       <div class="tab-panel" id="tab-renzhi">
         <div class="job-meta"><span>更新日期：2026/6/6</span></div>
         <div class="job-section-title">已跑路 / 已辞职</div>
-        <div class="job-grid" id="grid-runaway"></div>
+        <div class="job-grid" id="grid-runaway"><div class="job-item runaway">
+          <div class="name">惊蛰永会</div>
+          <div class="note">该po已跑路</div>
+          <div class="note" style="color:var(--muted); font-size:0.75rem;">（半年会结束-永会现在）</div>
+        </div><div class="job-item runaway">
+          <div class="name">离雨永辉</div>
+          <div class="note">该po已跑路</div>
+          <div class="note" style="color:var(--muted); font-size:0.75rem;">（免费会-现在）</div>
+        </div><div class="job-item runaway" style="border-color:rgba(255,255,255,0.1); background:rgba(255,255,255,0.02);">
+          <div class="name" style="color:var(--muted); text-decoration:line-through;">桂雨永会</div>
+          <div class="note" style="color:var(--seal);">（po原因辞职）</div>
+          
+        </div></div>
         <div class="job-section-title">现任及其他记录</div>
-        <div class="job-grid" id="grid-current"></div>
+        <div class="job-grid" id="grid-current"><div class="job-item">
+          <div class="name">小八（JUI）永会</div>
+          <div class="note">（期会-现在）</div>
+        </div><div class="job-item">
+          <div class="name">茜名片永会</div>
+          <div class="note">（接手前单标工作-现在）</div>
+        </div></div>
         <div class="job-section-title">已完结</div>
-        <div class="job-grid" id="grid-finished"></div>
+        <div class="job-grid" id="grid-finished"><div class="job-item"><div class="name">Aissk水印</div></div><div class="job-item"><div class="name">吃个橙子</div></div><div class="job-item"><div class="name">蛋水印会</div></div><div class="job-item"><div class="name">桂雨3.0</div></div><div class="job-item"><div class="name">桂雨全屏</div></div><div class="job-item"><div class="name">江傲天半年</div></div><div class="job-item"><div class="name">交警大队</div></div><div class="job-item"><div class="name">金色锄头</div></div><div class="job-item"><div class="name">兰舟渡月预览年</div></div><div class="job-item"><div class="name">兰舟渡月1.0-4.0</div></div><div class="job-item"><div class="name">理想国</div></div><div class="job-item"><div class="name">霖</div></div><div class="job-item"><div class="name">霖4.0</div></div><div class="job-item"><div class="name">泠晚</div></div><div class="job-item"><div class="name">咩铛劳不重叠</div></div><div class="job-item"><div class="name">奈2.0</div></div><div class="job-item"><div class="name">年-大蛋全屏</div></div><div class="job-item"><div class="name">青椒肉丝全屏季</div></div><div class="job-item"><div class="name">汤臣一品</div></div><div class="job-item"><div class="name">甜酥柚子</div></div><div class="job-item"><div class="name">偷偷乐2.0</div></div><div class="job-item"><div class="name">西的会</div></div><div class="job-item"><div class="name">熙の期会4.0+5.0</div></div><div class="job-item"><div class="name">小8期会</div></div><div class="job-item"><div class="name">小菲水印半年会</div></div><div class="job-item"><div class="name">小乐-小水印期</div></div><div class="job-item"><div class="name">小琳的瞳印月会</div></div><div class="job-item"><div class="name">小桐全屏期会</div></div><div class="job-item"><div class="name">小柚养成+1.0</div></div><div class="job-item"><div class="name">印章会</div></div><div class="job-item"><div class="name">永-不循环的缘</div></div><div class="job-item"><div class="name">遇琛半年会</div></div><div class="job-item"><div class="name">御茶小禾半年</div></div><div class="job-item"><div class="name">允+颖水印套组期会</div></div><div class="job-item"><div class="name">允全屏1.0-7.0</div></div><div class="job-item"><div class="name">杂煮期会</div></div><div class="job-item"><div class="name">诸事皆宜</div></div><div class="job-item"><div class="name">咸鸭蛋1.0</div></div><div class="job-item"><div class="name">彤不重叠半年（接手前单标工作）</div></div></div>
       </div>
     </div>
   </div>
@@ -706,25 +783,1269 @@
       <div><span>三次号：</span><strong>1907231414</strong></div>
     </div>
     <div class="total-amount-wrap">
-      <div>本站记录合计金额：<span class="total-num" id="grand-total">0.00</span></div>
+      <div>本站记录合计金额：<span class="total-num" id="grand-total">¥21823.49</span></div>
       <div class="total-note">本站收录为能找到记录的消费 其他未记录的或部分跑路未记录以及超上古消费不在收录中</div>
     </div>
     <div class="tabs-nav" id="menkan-tabs">
-      <button class="tab-btn active" data-target="mk-nianyong">年永<span class="tab-money" id="sum-nianyong">0.00</span></button>
-      <button class="tab-btn" data-target="mk-taohui">套会<span class="tab-money" id="sum-taohui">0.00</span></button>
-      <button class="tab-btn" data-target="mk-sucai">素材模板<span class="tab-money" id="sum-sucai">0.00</span></button>
-      <button class="tab-btn" data-target="mk-dingzhi">定制会<span class="tab-money" id="sum-dingzhi">0.00</span></button>
-      <button class="tab-btn" data-target="mk-chegao">车稿<span class="tab-money" id="sum-chegao">0.00</span></button>
-      <button class="tab-btn" data-target="mk-qita">其他<span class="tab-money" id="sum-qita">0.00</span></button>
+      <button class="tab-btn active" data-target="mk-nianyong">年永<span class="tab-money" id="sum-nianyong">¥9214.00</span></button>
+      <button class="tab-btn" data-target="mk-taohui">套会<span class="tab-money" id="sum-taohui">¥1677.00</span></button>
+      <button class="tab-btn" data-target="mk-sucai">素材模板<span class="tab-money" id="sum-sucai">¥3683.00</span></button>
+      <button class="tab-btn" data-target="mk-dingzhi">定制会<span class="tab-money" id="sum-dingzhi">¥243.00</span></button>
+      <button class="tab-btn" data-target="mk-chegao">车稿<span class="tab-money" id="sum-chegao">¥5832.69</span></button>
+      <button class="tab-btn" data-target="mk-qita">其他<span class="tab-money" id="sum-qita">¥1173.80</span></button>
       <button class="tab-btn screenshot-btn" onclick="window.open('https://docs.qq.com/sheet/DVmNCWVB1Z0hWd25t?tab=6udk8j', '_blank')">截图版<span class="tab-money">↗</span></button>
     </div>
     <div class="price-board">
-      <div class="tab-panel active" id="mk-nianyong"><div class="door-grid"></div></div>
-      <div class="tab-panel" id="mk-taohui"><div class="door-grid"></div></div>
-      <div class="tab-panel" id="mk-sucai"><div class="door-grid"></div></div>
-      <div class="tab-panel" id="mk-dingzhi"><div class="door-grid"></div></div>
-      <div class="tab-panel" id="mk-chegao"><div class="car-grid"></div></div>
-      <div class="tab-panel" id="mk-qita"><div class="door-grid"></div></div>
+      <div class="tab-panel active" id="mk-nianyong"><div class="door-grid"><div class="door-item"><span class="name">GloriAsh</span><span class="price">489</span></div><div class="door-item"><span class="name">半见</span><span class="price">783</span></div><div class="door-item"><span class="name">黑风</span><span class="price">398</span></div><div class="door-item"><span class="name">惊蛰永</span><span class="price">248</span></div><div class="door-item"><span class="name">聊聊</span><span class="price">138</span></div><div class="door-item"><span class="name">曼曼</span><span class="price">88</span></div><div class="door-item"><span class="name">喵呜</span><span class="price">308</span></div><div class="door-item"><span class="name">木栖</span><span class="price">128</span></div><div class="door-item"><span class="name">奈落</span><span class="price">188</span></div><div class="door-item"><span class="name">千鸟</span><span class="price">288</span></div><div class="door-item"><span class="name">青途安</span><span class="price">308</span></div><div class="door-item"><span class="name">三土喵</span><span class="price">218</span></div><div class="door-item"><span class="name">土豆</span><span class="price">238</span></div><div class="door-item"><span class="name">晚安</span><span class="price">498</span></div><div class="door-item"><span class="name">文星</span><span class="price">758</span></div><div class="door-item"><span class="name">小灿</span><span class="price">450</span></div><div class="door-item"><span class="name">晓山青</span><span class="price">648</span></div><div class="door-item"><span class="name">馨馨子</span><span class="price">458</span></div><div class="door-item"><span class="name">雪糯米</span><span class="price">228</span></div><div class="door-item"><span class="name">铱铱</span><span class="price">418</span></div><div class="door-item"><span class="name">玉子</span><span class="price">128</span></div><div class="door-item"><span class="name">桌子</span><span class="price">198</span></div><div class="door-item"><span class="name">辣条</span><span class="price">138</span></div><div class="door-item"><span class="name">搂你裤头</span><span class="price">128</span></div><div class="door-item"><span class="name">美子</span><span class="price">108</span></div><div class="door-item"><span class="name">猛龙放枪</span><span class="price">118</span></div><div class="door-item"><span class="name">命鲤</span><span class="price">88</span></div><div class="door-item"><span class="name">清洛</span><span class="price">128</span></div><div class="door-item"><span class="name">咩咩椰中</span><span class="price">518</span></div><div class="door-item"><span class="name">清洛摸鱼年</span><span class="price">66</span></div><div class="door-item"><span class="name">小8永</span><span class="price">198</span></div><div class="door-item"><span class="name">了了年</span><span class="price">120</span></div></div></div>
+      <div class="tab-panel" id="mk-taohui"><div class="door-grid"><div class="door-item"><span class="name">糯米团</span><span class="price">60</span></div><div class="door-item"><span class="name">情头套会-联合</span><span class="price">52</span></div><div class="door-item"><span class="name">梨子</span><span class="price">52</span></div><div class="door-item"><span class="name">动物-联合</span><span class="price">30</span></div><div class="door-item"><span class="name">热水</span><span class="price">29.9</span></div><div class="door-item"><span class="name">阿尘</span><span class="price">30</span></div><div class="door-item"><span class="name">氏朽</span><span class="price">26.9</span></div><div class="door-item"><span class="name">聊聊</span><span class="price">35</span></div><div class="door-item"><span class="name">负雪行</span><span class="price">33.3</span></div><div class="door-item"><span class="name">错涂-联合</span><span class="price">48</span></div><div class="door-item"><span class="name">猫撞撞1.0</span><span class="price">20</span></div><div class="door-item"><span class="name">青禾</span><span class="price">20</span></div><div class="door-item"><span class="name">进宝</span><span class="price">18</span></div><div class="door-item"><span class="name">F4-联合</span><span class="price">35</span></div><div class="door-item"><span class="name">卜兔1.0</span><span class="price">25</span></div><div class="door-item"><span class="name">卜兔2.0</span><span class="price">19.9</span></div><div class="door-item"><span class="name">卜兔3.0</span><span class="price">30</span></div><div class="door-item"><span class="name">卜兔4.0</span><span class="price">39.9</span></div><div class="door-item"><span class="name">卜兔5.0</span><span class="price">27.9</span></div><div class="door-item"><span class="name">小馨</span><span class="price">30</span></div><div class="door-item"><span class="name">烦死了-联合</span><span class="price">40</span></div><div class="door-item"><span class="name">早君涂糯-联合</span><span class="price">39</span></div><div class="door-item"><span class="name">春日联合</span><span class="price">39</span></div><div class="door-item"><span class="name">碎</span><span class="price">35</span></div><div class="door-item"><span class="name">良良</span><span class="price">29.9</span></div><div class="door-item"><span class="name">霜雪明棠-联合</span><span class="price">52</span></div><div class="door-item"><span class="name">盲盒-联合</span><span class="price">55</span></div><div class="door-item"><span class="name">三里情头-联合</span><span class="price">35</span></div><div class="door-item"><span class="name">乔闹闹</span><span class="price">30</span></div><div class="door-item"><span class="name">禄</span><span class="price">19</span></div><div class="door-item"><span class="name">白糖酥饼</span><span class="price">25</span></div><div class="door-item"><span class="name">玉子</span><span class="price">30</span></div><div class="door-item"><span class="name">清洛</span><span class="price">25</span></div><div class="door-item"><span class="name">潘潘</span><span class="price">52</span></div><div class="door-item"><span class="name">鸿雪</span><span class="price">24</span></div><div class="door-item"><span class="name">民国初恋-联合</span><span class="price">19.9</span></div><div class="door-item"><span class="name">猫撞撞2.0</span><span class="price">30</span></div><div class="door-item"><span class="name">猫撞撞3.0</span><span class="price">30</span></div><div class="door-item"><span class="name">墨凉</span><span class="price">35</span></div><div class="door-item"><span class="name">年年</span><span class="price">16.6</span></div><div class="door-item"><span class="name">张三</span><span class="price">19.9</span></div><div class="door-item"><span class="name">行星-联合</span><span class="price">30</span></div><div class="door-item"><span class="name">算了吧-联合</span><span class="price">35</span></div><div class="door-item"><span class="name">吐司</span><span class="price">29.9</span></div><div class="door-item"><span class="name">阿言</span><span class="price">18</span></div><div class="door-item"><span class="name">重火</span><span class="price">50</span></div><div class="door-item"><span class="name">桃子</span><span class="price">20</span></div><div class="door-item"><span class="name">美子</span><span class="price">25</span></div><div class="door-item"><span class="name">排骨小包</span><span class="price">42</span></div><div class="door-item"><span class="name">兔兔</span><span class="price">35</span></div><div class="door-item"><span class="name">AIKO</span><span class="price">30</span></div><div class="door-item"><span class="name">闲月</span><span class="price">18</span></div></div></div>
+      <div class="tab-panel" id="mk-sucai"><div class="door-grid"><div class="door-item"><span class="name">kiki底纹大期</span><span class="price">88</span></div><div class="door-item"><span class="name">Pigki'Banli 底纹会1.0</span><span class="price">88</span></div><div class="door-item"><span class="name">Pigki'Banli 底纹会1.0</span><span class="price">88</span></div><div class="door-item"><span class="name">纪日漫不重叠</span><span class="price">55</span></div><div class="door-item"><span class="name">小1边角料年</span><span class="price">191</span></div><div class="door-item"><span class="name">璇古稿边角料</span><span class="price">55</span></div><div class="door-item"><span class="name">有诗不重叠</span><span class="price">150</span></div><div class="door-item"><span class="name">有诗男用</span><span class="price">80</span></div><div class="door-item"><span class="name">芝emo套组年</span><span class="price">260</span></div><div class="door-item"><span class="name">芷不重叠</span><span class="price">26</span></div><div class="door-item"><span class="name">奈小套组永</span><span class="price">588</span></div><div class="door-item"><span class="name">奈情侣大期</span><span class="price">138</span></div><div class="door-item"><span class="name">未命名 古稿边角料期</span><span class="price">35</span></div><div class="door-item"><span class="name">格全屏年</span><span class="price">303</span></div><div class="door-item"><span class="name">钱古风套组年</span><span class="price">358</span></div><div class="door-item"><span class="name">希二维码</span><span class="price">148</span></div><div class="door-item"><span class="name">芝晴合开</span><span class="price">85</span></div><div class="door-item"><span class="name">密集全屏</span><span class="price">45</span></div><div class="door-item"><span class="name">阮眠全屏懒宝宝</span><span class="price">100</span></div><div class="door-item"><span class="name">风格全屏7.0-9.0</span><span class="price">32</span></div><div class="door-item"><span class="name">手写小水印1-5期</span><span class="price">140</span></div><div class="door-item"><span class="name">椰浮雕全屏大期</span><span class="price">75</span></div><div class="door-item"><span class="name">瑜不重叠2.0</span><span class="price">25</span></div><div class="door-item"><span class="name">希不重叠7.0</span><span class="price">52</span></div><div class="door-item"><span class="name">板栗单购模板</span><span class="price">40</span></div><div class="door-item"><span class="name">有诗密集</span><span class="price">30</span></div><div class="door-item"><span class="name">岩古稿大期</span><span class="price">140</span></div><div class="door-item"><span class="name">#lix李笑*底素组1.0</span><span class="price">25</span></div><div class="door-item"><span class="name">#lix李笑*底素组2.0</span><span class="price">25</span></div><div class="door-item"><span class="name">纪绾表情包</span><span class="price">114</span></div><div class="door-item"><span class="name">Yin风格永</span><span class="price">13</span></div><div class="door-item"><span class="name">婧の自截一体框季4.0</span><span class="price">25</span></div><div class="door-item"><span class="name">课程表1.0</span><span class="price">13</span></div><div class="door-item"><span class="name">姜昕黑色亮晶晶 手绘壁纸1.0</span><span class="price">13</span></div><div class="door-item"><span class="name">姜昕黑色亮晶晶手绘名片大期</span><span class="price">40</span></div></div></div>
+      <div class="tab-panel" id="mk-dingzhi"><div class="door-grid"><div class="door-item"><span class="name">爱瑜2.0</span><span class="price">20</span></div><div class="door-item"><span class="name">呆呆猫</span><span class="price">8</span></div><div class="door-item"><span class="name">果冻卷</span><span class="price">15</span></div><div class="door-item"><span class="name">库洛米</span><span class="price">18</span></div><div class="door-item"><span class="name">落樱小镇</span><span class="price">5</span></div><div class="door-item"><span class="name">年年有瑜</span><span class="price">16</span></div><div class="door-item"><span class="name">琪死小莹啦10</span><span class="price">10</span></div><div class="door-item"><span class="name">涩丽娅</span><span class="price">5</span></div><div class="door-item"><span class="name">小樱日记</span><span class="price">7</span></div><div class="door-item"><span class="name">小瑜包</span><span class="price">20</span></div><div class="door-item"><span class="name">小瑜干</span><span class="price">15</span></div><div class="door-item"><span class="name">小瑜降临</span><span class="price">16</span></div><div class="door-item"><span class="name">小瑜丸</span><span class="price">10</span></div><div class="door-item"><span class="name">樱什么樱</span><span class="price">6</span></div><div class="door-item"><span class="name">小桃小丸子</span><span class="price">27</span></div><div class="door-item"><span class="name">尤妍</span><span class="price">20</span></div><div class="door-item"><span class="name">又见冬瑜</span><span class="price">15</span></div><div class="door-item"><span class="name">鸳鸯锅</span><span class="price">10</span></div></div></div>
+      <div class="tab-panel" id="mk-chegao"><div class="car-grid"><div class="car-item">
+            <span class="name" title="GloriAsh">GloriAsh</span>
+            <span class="desc" title="永劫胡桃蝶梦">永劫胡桃蝶梦</span>
+            <span class="price">26.89</span>
+          </div><div class="car-item">
+            <span class="name" title="风吹">风吹</span>
+            <span class="desc" title="永劫季沧海">永劫季沧海</span>
+            <span class="price">16.78</span>
+          </div><div class="car-item">
+            <span class="name" title="是木">是木</span>
+            <span class="desc" title="永劫无尘胡桃">永劫无尘胡桃</span>
+            <span class="price">28.17</span>
+          </div><div class="car-item">
+            <span class="name" title="铱铱">铱铱</span>
+            <span class="desc" title="lol娜美">lol娜美</span>
+            <span class="price">31</span>
+          </div><div class="car-item">
+            <span class="name" title="理理">理理</span>
+            <span class="desc" title="永劫妖刀姬">永劫妖刀姬</span>
+            <span class="price">6</span>
+          </div><div class="car-item">
+            <span class="name" title="霍祺">霍祺</span>
+            <span class="desc" title="永劫胡桃">永劫胡桃</span>
+            <span class="price">9.42</span>
+          </div><div class="car-item">
+            <span class="name" title="多多">多多</span>
+            <span class="desc" title="永劫水火">永劫水火</span>
+            <span class="price">90</span>
+          </div><div class="car-item">
+            <span class="name" title="霍霍">霍霍</span>
+            <span class="desc" title="永劫jk胡桃">永劫jk胡桃</span>
+            <span class="price">6.95</span>
+          </div><div class="car-item">
+            <span class="name" title="狂暴鲨鱼">狂暴鲨鱼</span>
+            <span class="desc" title="永劫胡桃落英">永劫胡桃落英</span>
+            <span class="price">8.94</span>
+          </div><div class="car-item">
+            <span class="name" title="大鱼">大鱼</span>
+            <span class="desc" title="永劫胡桃">永劫胡桃</span>
+            <span class="price">14.71</span>
+          </div><div class="car-item">
+            <span class="name" title="霍霍">霍霍</span>
+            <span class="desc" title="永劫顾清寒">永劫顾清寒</span>
+            <span class="price">8</span>
+          </div><div class="car-item">
+            <span class="name" title="小羊">小羊</span>
+            <span class="desc" title="永劫jk胡桃">永劫jk胡桃</span>
+            <span class="price">5</span>
+          </div><div class="car-item">
+            <span class="name" title="GloriAsh">GloriAsh</span>
+            <span class="desc" title="永劫日道胡桃">永劫日道胡桃</span>
+            <span class="price">24.75</span>
+          </div><div class="car-item">
+            <span class="name" title="汐子">汐子</span>
+            <span class="desc" title="永劫胡桃">永劫胡桃</span>
+            <span class="price">16.39</span>
+          </div><div class="car-item">
+            <span class="name" title="通心粉">通心粉</span>
+            <span class="desc" title="永劫胡桃">永劫胡桃</span>
+            <span class="price">7.47</span>
+          </div><div class="car-item">
+            <span class="name" title="情愿">情愿</span>
+            <span class="desc" title="永劫无尘胡桃">永劫无尘胡桃</span>
+            <span class="price">37.17</span>
+          </div><div class="car-item">
+            <span class="name" title="夏沫">夏沫</span>
+            <span class="desc" title="季莹莹">季莹莹</span>
+            <span class="price">7.53</span>
+          </div><div class="car-item">
+            <span class="name" title="腿梓">腿梓</span>
+            <span class="desc" title="jk胡桃">jk胡桃</span>
+            <span class="price">7.26</span>
+          </div><div class="car-item">
+            <span class="name" title="希子">希子</span>
+            <span class="desc" title="胡桃">胡桃</span>
+            <span class="price">17.65</span>
+          </div><div class="car-item">
+            <span class="name" title="小辣辣">小辣辣</span>
+            <span class="desc" title="胡桃">胡桃</span>
+            <span class="price">19.39</span>
+          </div><div class="car-item">
+            <span class="name" title="流年">流年</span>
+            <span class="desc" title="胡桃">胡桃</span>
+            <span class="price">29.41</span>
+          </div><div class="car-item">
+            <span class="name" title="十日浪">十日浪</span>
+            <span class="desc" title="胡桃">胡桃</span>
+            <span class="price">17.34</span>
+          </div><div class="car-item">
+            <span class="name" title="又野">又野</span>
+            <span class="desc" title="胡桃">胡桃</span>
+            <span class="price">14.6</span>
+          </div><div class="car-item">
+            <span class="name" title="风吹">风吹</span>
+            <span class="desc" title="尘桃">尘桃</span>
+            <span class="price">28.8</span>
+          </div><div class="car-item">
+            <span class="name" title="灯年">灯年</span>
+            <span class="desc" title="胡桃">胡桃</span>
+            <span class="price">8.5</span>
+          </div><div class="car-item">
+            <span class="name" title="三狗">三狗</span>
+            <span class="desc" title="胡桃">胡桃</span>
+            <span class="price">8.67</span>
+          </div><div class="car-item">
+            <span class="name" title="罐头">罐头</span>
+            <span class="desc" title="岳山胡桃">岳山胡桃</span>
+            <span class="price">12.25</span>
+          </div><div class="car-item">
+            <span class="name" title="胡桃指针">胡桃指针</span>
+            <span class="desc" title="鼠标指针">鼠标指针</span>
+            <span class="price">4.2</span>
+          </div><div class="car-item">
+            <span class="name" title="缓缓">缓缓</span>
+            <span class="desc" title="胡桃">胡桃</span>
+            <span class="price">8.95</span>
+          </div><div class="car-item">
+            <span class="name" title="阿斯">阿斯</span>
+            <span class="desc" title="nono">nono</span>
+            <span class="price">8</span>
+          </div><div class="car-item">
+            <span class="name" title="Aenn">Aenn</span>
+            <span class="desc" title="胡桃半身">胡桃半身</span>
+            <span class="price">6.87</span>
+          </div><div class="car-item">
+            <span class="name" title="FF">FF</span>
+            <span class="desc" title="胡为沈妙">胡为沈妙</span>
+            <span class="price">17.47</span>
+          </div><div class="car-item">
+            <span class="name" title="GloriAsh">GloriAsh</span>
+            <span class="desc" title="胡桃竖插-定金">胡桃竖插-定金</span>
+            <span class="price">20</span>
+          </div><div class="car-item">
+            <span class="name" title="竖枝">竖枝</span>
+            <span class="desc" title="排单定金">排单定金</span>
+            <span class="price">15</span>
+          </div><div class="car-item">
+            <span class="name" title="奈奈">奈奈</span>
+            <span class="desc" title="胡桃">胡桃</span>
+            <span class="price">11</span>
+          </div><div class="car-item">
+            <span class="name" title="桃子小橙">桃子小橙</span>
+            <span class="desc" title="胡桃">胡桃</span>
+            <span class="price">11</span>
+          </div><div class="car-item">
+            <span class="name" title="波梨">波梨</span>
+            <span class="desc" title="胡桃">胡桃</span>
+            <span class="price">10.5</span>
+          </div><div class="car-item">
+            <span class="name" title="逻辑猫">逻辑猫</span>
+            <span class="desc" title="胡桃">胡桃</span>
+            <span class="price">7.8</span>
+          </div><div class="car-item">
+            <span class="name" title="莫言">莫言</span>
+            <span class="desc" title="胡桃表情包">胡桃表情包</span>
+            <span class="price">3.86</span>
+          </div><div class="car-item">
+            <span class="name" title="jk桃全身">jk桃全身</span>
+            <span class="desc" title="胡桃">胡桃</span>
+            <span class="price">5.85</span>
+          </div><div class="car-item">
+            <span class="name" title="内内">内内</span>
+            <span class="desc" title="尘桃">尘桃</span>
+            <span class="price">80</span>
+          </div><div class="car-item">
+            <span class="name" title="小艾">小艾</span>
+            <span class="desc" title="性转冰女+胡桃色色">性转冰女+胡桃色色</span>
+            <span class="price">13</span>
+          </div><div class="car-item">
+            <span class="name" title="一">一</span>
+            <span class="desc" title="胡桃输入法定金">胡桃输入法定金</span>
+            <span class="price">7</span>
+          </div><div class="car-item">
+            <span class="name" title="后妈">后妈</span>
+            <span class="desc" title="沈妙腓腓">沈妙腓腓</span>
+            <span class="price">16</span>
+          </div><div class="car-item">
+            <span class="name" title="小熊">小熊</span>
+            <span class="desc" title="胡桃">胡桃</span>
+            <span class="price">11.51</span>
+          </div><div class="car-item">
+            <span class="name" title="饼饼一刀">饼饼一刀</span>
+            <span class="desc" title="胡桃">胡桃</span>
+            <span class="price">25.8</span>
+          </div><div class="car-item">
+            <span class="name" title="chic">chic</span>
+            <span class="desc" title="玉玲珑">玉玲珑</span>
+            <span class="price">16.63</span>
+          </div><div class="car-item">
+            <span class="name" title="菜菜">菜菜</span>
+            <span class="desc" title="季莹莹">季莹莹</span>
+            <span class="price">25.2</span>
+          </div><div class="car-item">
+            <span class="name" title="云朵">云朵</span>
+            <span class="desc" title="胡桃素材">胡桃素材</span>
+            <span class="price">10</span>
+          </div><div class="car-item">
+            <span class="name" title="MC">MC</span>
+            <span class="desc" title="胡为胡桃">胡为胡桃</span>
+            <span class="price">28.5</span>
+          </div><div class="car-item">
+            <span class="name" title="弥芥子">弥芥子</span>
+            <span class="desc" title="全身">全身</span>
+            <span class="price">16.67</span>
+          </div><div class="car-item">
+            <span class="name" title="果酱">果酱</span>
+            <span class="desc" title="水娘火男">水娘火男</span>
+            <span class="price">34</span>
+          </div><div class="car-item">
+            <span class="name" title="猫玖">猫玖</span>
+            <span class="desc" title="永恩阿狸">永恩阿狸</span>
+            <span class="price">37.37</span>
+          </div><div class="car-item">
+            <span class="name" title="枫叶">枫叶</span>
+            <span class="desc" title="玉剑奶妈">玉剑奶妈</span>
+            <span class="price">11.52</span>
+          </div><div class="car-item">
+            <span class="name" title="小嘉">小嘉</span>
+            <span class="desc" title="胡桃腿腿">胡桃腿腿</span>
+            <span class="price">11.5</span>
+          </div><div class="car-item">
+            <span class="name" title="鱼骨头">鱼骨头</span>
+            <span class="desc" title="吴e凡兄妹">吴e凡兄妹</span>
+            <span class="price">21.6</span>
+          </div><div class="car-item">
+            <span class="name" title="茶也子">茶也子</span>
+            <span class="desc" title="白丝胡桃">白丝胡桃</span>
+            <span class="price">23.84</span>
+          </div><div class="car-item">
+            <span class="name" title="鸦雀枝头">鸦雀枝头</span>
+            <span class="desc" title="无尘">无尘</span>
+            <span class="price">10.7</span>
+          </div><div class="car-item">
+            <span class="name" title="咩咩">咩咩</span>
+            <span class="desc" title="灵魂莲华">灵魂莲华</span>
+            <span class="price">35</span>
+          </div><div class="car-item">
+            <span class="name" title="大鱼">大鱼</span>
+            <span class="desc" title="尘桃">尘桃</span>
+            <span class="price">20.91</span>
+          </div><div class="car-item">
+            <span class="name" title="梦秦">梦秦</span>
+            <span class="desc" title="霞">霞</span>
+            <span class="price">13.5</span>
+          </div><div class="car-item">
+            <span class="name" title="葵酉">葵酉</span>
+            <span class="desc" title="金克斯">金克斯</span>
+            <span class="price">17.2</span>
+          </div><div class="car-item">
+            <span class="name" title="兰蘅">兰蘅</span>
+            <span class="desc" title="殷紫萍">殷紫萍</span>
+            <span class="price">25.7</span>
+          </div><div class="car-item">
+            <span class="name" title="chic">chic</span>
+            <span class="desc" title="摩羯胡桃">摩羯胡桃</span>
+            <span class="price">20.5</span>
+          </div><div class="car-item">
+            <span class="name" title="理理">理理</span>
+            <span class="desc" title="玉剑奶妈">玉剑奶妈</span>
+            <span class="price">14.5</span>
+          </div><div class="car-item">
+            <span class="name" title="不知道">不知道</span>
+            <span class="desc" title="星守佐伊">星守佐伊</span>
+            <span class="price">13.5</span>
+          </div><div class="car-item">
+            <span class="name" title="不知道">不知道</span>
+            <span class="desc" title="卡莎原皮">卡莎原皮</span>
+            <span class="price">13.5</span>
+          </div><div class="car-item">
+            <span class="name" title="kiyo">kiyo</span>
+            <span class="desc" title="泳池璐璐">泳池璐璐</span>
+            <span class="price">19.2</span>
+          </div><div class="car-item">
+            <span class="name" title="爱莉">爱莉</span>
+            <span class="desc" title="光明霞洛">光明霞洛</span>
+            <span class="price">7</span>
+          </div><div class="car-item">
+            <span class="name" title="爱莉">爱莉</span>
+            <span class="desc" title="奶妈霞">奶妈霞</span>
+            <span class="price">1.4</span>
+          </div><div class="car-item">
+            <span class="name" title="桃">桃</span>
+            <span class="desc" title="永劫全英雄水印">永劫全英雄水印</span>
+            <span class="price">36.8</span>
+          </div><div class="car-item">
+            <span class="name" title="鱼骨头">鱼骨头</span>
+            <span class="desc" title="黑夜使者奶妈">黑夜使者奶妈</span>
+            <span class="price">23.1</span>
+          </div><div class="car-item">
+            <span class="name" title="春日青">春日青</span>
+            <span class="desc" title="胡桃">胡桃</span>
+            <span class="price">19.7</span>
+          </div><div class="car-item">
+            <span class="name" title="灯灯">灯灯</span>
+            <span class="desc" title="吴e凡兄妹">吴e凡兄妹</span>
+            <span class="price">41</span>
+          </div><div class="car-item">
+            <span class="name" title="奶霜">奶霜</span>
+            <span class="desc" title="摩羯胡桃输入法">摩羯胡桃输入法</span>
+            <span class="price">6.75</span>
+          </div><div class="car-item">
+            <span class="name" title="鸭脖">鸭脖</span>
+            <span class="desc" title="胡为沈妙">胡为沈妙</span>
+            <span class="price">26.5</span>
+          </div><div class="car-item">
+            <span class="name" title="小时">小时</span>
+            <span class="desc" title="胡为紫萍摸鱼">胡为紫萍摸鱼</span>
+            <span class="price">29.91</span>
+          </div><div class="car-item">
+            <span class="name" title="咩咩">咩咩</span>
+            <span class="desc" title="拉克丝">拉克丝</span>
+            <span class="price">34.75</span>
+          </div><div class="car-item">
+            <span class="name" title="西西">西西</span>
+            <span class="desc" title="卡莎全身横插">卡莎全身横插</span>
+            <span class="price">42.5</span>
+          </div><div class="car-item">
+            <span class="name" title="西兰花">西兰花</span>
+            <span class="desc" title="索拉卡">索拉卡</span>
+            <span class="price">24.2</span>
+          </div><div class="car-item">
+            <span class="name" title="N酱">N酱</span>
+            <span class="desc" title="胡桃">胡桃</span>
+            <span class="price">28.5</span>
+          </div><div class="car-item">
+            <span class="name" title="异刺鲨">异刺鲨</span>
+            <span class="desc" title="尘桃">尘桃</span>
+            <span class="price">19.25</span>
+          </div><div class="car-item">
+            <span class="name" title="14">14</span>
+            <span class="desc" title="冰奶">冰奶</span>
+            <span class="price">19.6</span>
+          </div><div class="car-item">
+            <span class="name" title="桂雨熊">桂雨熊</span>
+            <span class="desc" title="情人节风女">情人节风女</span>
+            <span class="price">26.6</span>
+          </div><div class="car-item">
+            <span class="name" title="甜心">甜心</span>
+            <span class="desc" title="索拉卡">索拉卡</span>
+            <span class="price">18.5</span>
+          </div><div class="car-item">
+            <span class="name" title="酸奶">酸奶</span>
+            <span class="desc" title="至臻彩霞">至臻彩霞</span>
+            <span class="price">10.8</span>
+          </div><div class="car-item">
+            <span class="name" title="686">686</span>
+            <span class="desc" title="霞奶妈">霞奶妈</span>
+            <span class="price">20</span>
+          </div><div class="car-item">
+            <span class="name" title="slww">slww</span>
+            <span class="desc" title="魔女娜美">魔女娜美</span>
+            <span class="price">27.7</span>
+          </div><div class="car-item">
+            <span class="name" title="理理">理理</span>
+            <span class="desc" title="黑洞金克斯">黑洞金克斯</span>
+            <span class="price">8.5</span>
+          </div><div class="car-item">
+            <span class="name" title="酸奶">酸奶</span>
+            <span class="desc" title="格温">格温</span>
+            <span class="price">13.5</span>
+          </div><div class="car-item">
+            <span class="name" title="14">14</span>
+            <span class="desc" title="光明霞">光明霞</span>
+            <span class="price">19.6</span>
+          </div><div class="car-item">
+            <span class="name" title="菇菇">菇菇</span>
+            <span class="desc" title="胡桃？">胡桃？</span>
+            <span class="price">26.98</span>
+          </div><div class="car-item">
+            <span class="name" title="朝雾和阳">朝雾和阳</span>
+            <span class="desc" title="胡桃">胡桃</span>
+            <span class="price">16.55</span>
+          </div><div class="car-item">
+            <span class="name" title="boli">boli</span>
+            <span class="desc" title="胡桃">胡桃</span>
+            <span class="price">9.33</span>
+          </div><div class="car-item">
+            <span class="name" title="秋白">秋白</span>
+            <span class="desc" title="胡桃">胡桃</span>
+            <span class="price">10.56</span>
+          </div><div class="car-item">
+            <span class="name" title="阿斯">阿斯</span>
+            <span class="desc" title="胡桃">胡桃</span>
+            <span class="price">9.78</span>
+          </div><div class="car-item">
+            <span class="name" title="霜奶">霜奶</span>
+            <span class="desc" title="金克斯">金克斯</span>
+            <span class="price">13</span>
+          </div><div class="car-item">
+            <span class="name" title="不记年">不记年</span>
+            <span class="desc" title="玉剑奶妈">玉剑奶妈</span>
+            <span class="price">20.5</span>
+          </div><div class="car-item">
+            <span class="name" title="不知道">不知道</span>
+            <span class="desc" title="悲伤猫猫头">悲伤猫猫头</span>
+            <span class="price">14.5</span>
+          </div><div class="car-item">
+            <span class="name" title="爱莉">爱莉</span>
+            <span class="desc" title="情人节霞洛">情人节霞洛</span>
+            <span class="price">1.21</span>
+          </div><div class="car-item">
+            <span class="name" title="爱莉">爱莉</span>
+            <span class="desc" title="冰奶永恒霞">冰奶永恒霞</span>
+            <span class="price">2</span>
+          </div><div class="car-item">
+            <span class="name" title="爱莉">爱莉</span>
+            <span class="desc" title="小樱知世">小樱知世</span>
+            <span class="price">2.5</span>
+          </div><div class="car-item">
+            <span class="name" title="不知道">不知道</span>
+            <span class="desc" title="冰雪节璐璐">冰雪节璐璐</span>
+            <span class="price">6.2</span>
+          </div><div class="car-item">
+            <span class="name" title="14">14</span>
+            <span class="desc" title="玉剑奶妈">玉剑奶妈</span>
+            <span class="price">19.6</span>
+          </div><div class="car-item">
+            <span class="name" title="吖丝">吖丝</span>
+            <span class="desc" title="冰奶">冰奶</span>
+            <span class="price">16.8</span>
+          </div><div class="car-item">
+            <span class="name" title="小林">小林</span>
+            <span class="desc" title="迦南">迦南</span>
+            <span class="price">12.04</span>
+          </div><div class="car-item">
+            <span class="name" title="镇山虎">镇山虎</span>
+            <span class="desc" title="胡桃">胡桃</span>
+            <span class="price">40.5</span>
+          </div><div class="car-item">
+            <span class="name" title="鱼骨头">鱼骨头</span>
+            <span class="desc" title="玉剑风女">玉剑风女</span>
+            <span class="price">8.3</span>
+          </div><div class="car-item">
+            <span class="name" title="兔兔子">兔兔子</span>
+            <span class="desc" title="情风">情风</span>
+            <span class="price">30.8</span>
+          </div><div class="car-item">
+            <span class="name" title="青定">青定</span>
+            <span class="desc" title="胡桃半身定金">胡桃半身定金</span>
+            <span class="price">12.9</span>
+          </div><div class="car-item">
+            <span class="name" title="霖桥">霖桥</span>
+            <span class="desc" title="摩羯胡桃">摩羯胡桃</span>
+            <span class="price">13.77</span>
+          </div><div class="car-item">
+            <span class="name" title="桂雨">桂雨</span>
+            <span class="desc" title="胡桃+通用3层不重叠">胡桃+通用3层不重叠</span>
+            <span class="price">11</span>
+          </div><div class="car-item">
+            <span class="name" title="小蛋糕的">小蛋糕的</span>
+            <span class="desc" title="库洛米">库洛米</span>
+            <span class="price">22.67</span>
+          </div><div class="car-item">
+            <span class="name" title="阿斯">阿斯</span>
+            <span class="desc" title="呆呆鲨腿腿">呆呆鲨腿腿</span>
+            <span class="price">8.1</span>
+          </div><div class="car-item">
+            <span class="name" title="卷月">卷月</span>
+            <span class="desc" title="佐伊">佐伊</span>
+            <span class="price">19.3</span>
+          </div><div class="car-item">
+            <span class="name" title="阿果">阿果</span>
+            <span class="desc" title="泳池女警">泳池女警</span>
+            <span class="price">26</span>
+          </div><div class="car-item">
+            <span class="name" title="slww">slww</span>
+            <span class="desc" title="佐伊">佐伊</span>
+            <span class="price">28.5</span>
+          </div><div class="car-item">
+            <span class="name" title="吖丝">吖丝</span>
+            <span class="desc" title="格温">格温</span>
+            <span class="price">16.8</span>
+          </div><div class="car-item">
+            <span class="name" title="理理">理理</span>
+            <span class="desc" title="奶妈">奶妈</span>
+            <span class="price">18.5</span>
+          </div><div class="car-item">
+            <span class="name" title="kiyo">kiyo</span>
+            <span class="desc" title="冰雪节露露">冰雪节露露</span>
+            <span class="price">19.2</span>
+          </div><div class="car-item">
+            <span class="name" title="奈奈">奈奈</span>
+            <span class="desc" title="edg猫">edg猫</span>
+            <span class="price">14.7</span>
+          </div><div class="car-item">
+            <span class="name" title="686">686</span>
+            <span class="desc" title="女警">女警</span>
+            <span class="price">19</span>
+          </div><div class="car-item">
+            <span class="name" title="小飞兔">小飞兔</span>
+            <span class="desc" title="isojett">isojett</span>
+            <span class="price">10.5</span>
+          </div><div class="car-item">
+            <span class="name" title="小羽入">小羽入</span>
+            <span class="desc" title="永狸">永狸</span>
+            <span class="price">21.5</span>
+          </div><div class="car-item">
+            <span class="name" title="猫撞撞">猫撞撞</span>
+            <span class="desc" title="女警凯隐">女警凯隐</span>
+            <span class="price">20.8</span>
+          </div><div class="car-item">
+            <span class="name" title="猫撞撞">猫撞撞</span>
+            <span class="desc" title="星守卡莎情猫">星守卡莎情猫</span>
+            <span class="price">18.3</span>
+          </div><div class="car-item">
+            <span class="name" title="切橙">切橙</span>
+            <span class="desc" title="腥红之月阿卡丽">腥红之月阿卡丽</span>
+            <span class="price">16</span>
+          </div><div class="car-item">
+            <span class="name" title="不知道">不知道</span>
+            <span class="desc" title="凯琴">凯琴</span>
+            <span class="price">27.54</span>
+          </div><div class="car-item">
+            <span class="name" title="莓莓">莓莓</span>
+            <span class="desc" title="胡桃自我介绍">胡桃自我介绍</span>
+            <span class="price">7.5</span>
+          </div><div class="car-item">
+            <span class="name" title="GloriAsh">GloriAsh</span>
+            <span class="desc" title="竖插第二波">竖插第二波</span>
+            <span class="price">20</span>
+          </div><div class="car-item">
+            <span class="name" title="极乐景">极乐景</span>
+            <span class="desc" title="尘桃">尘桃</span>
+            <span class="price">11.09</span>
+          </div><div class="car-item">
+            <span class="name" title="兔圆">兔圆</span>
+            <span class="desc" title="胡桃">胡桃</span>
+            <span class="price">9.25</span>
+          </div><div class="car-item">
+            <span class="name" title="徐循">徐循</span>
+            <span class="desc" title="冰桃">冰桃</span>
+            <span class="price">22</span>
+          </div><div class="car-item">
+            <span class="name" title="牙牙">牙牙</span>
+            <span class="desc" title="万圣节蜘蛛">万圣节蜘蛛</span>
+            <span class="price">11.5</span>
+          </div><div class="car-item">
+            <span class="name" title="阿萝">阿萝</span>
+            <span class="desc" title="至臻奶妈">至臻奶妈</span>
+            <span class="price">24.8</span>
+          </div><div class="car-item">
+            <span class="name" title="猫撞撞">猫撞撞</span>
+            <span class="desc" title="星守霞">星守霞</span>
+            <span class="price">25</span>
+          </div><div class="car-item">
+            <span class="name" title="理理">理理</span>
+            <span class="desc" title="净雪女警">净雪女警</span>
+            <span class="price">8.7</span>
+          </div><div class="car-item">
+            <span class="name" title="碗碗">碗碗</span>
+            <span class="desc" title="至臻阿卡丽">至臻阿卡丽</span>
+            <span class="price">28.5</span>
+          </div><div class="car-item">
+            <span class="name" title="小羽入">小羽入</span>
+            <span class="desc" title="泳池佐伊">泳池佐伊</span>
+            <span class="price">17</span>
+          </div><div class="car-item">
+            <span class="name" title="灯灯">灯灯</span>
+            <span class="desc" title="吴e凡兄妹">吴e凡兄妹</span>
+            <span class="price">41</span>
+          </div><div class="car-item">
+            <span class="name" title="阿斯">阿斯</span>
+            <span class="desc" title="玉桂狗腿腿">玉桂狗腿腿</span>
+            <span class="price">10.6</span>
+          </div><div class="car-item">
+            <span class="name" title="爱莉">爱莉</span>
+            <span class="desc" title="男刀凤女">男刀凤女</span>
+            <span class="price">1.21</span>
+          </div><div class="car-item">
+            <span class="name" title="理理">理理</span>
+            <span class="desc" title="魔女三人">魔女三人</span>
+            <span class="price">26</span>
+          </div><div class="car-item">
+            <span class="name" title="爱莉">爱莉</span>
+            <span class="desc" title="电婆">电婆</span>
+            <span class="price">2.92</span>
+          </div><div class="car-item">
+            <span class="name" title="霜奶">霜奶</span>
+            <span class="desc" title="冰奶输入法">冰奶输入法</span>
+            <span class="price">15.2</span>
+          </div><div class="car-item">
+            <span class="name" title="空折">空折</span>
+            <span class="desc" title="魔女蜘蛛">魔女蜘蛛</span>
+            <span class="price">26</span>
+          </div><div class="car-item">
+            <span class="name" title="阿果">阿果</span>
+            <span class="desc" title="冰奶">冰奶</span>
+            <span class="price">21</span>
+          </div><div class="car-item">
+            <span class="name" title="milki">milki</span>
+            <span class="desc" title="胡桃">胡桃</span>
+            <span class="price">17.4</span>
+          </div><div class="car-item">
+            <span class="name" title="穷兔">穷兔</span>
+            <span class="desc" title="胡桃">胡桃</span>
+            <span class="price">17.86</span>
+          </div><div class="car-item">
+            <span class="name" title="不知道">不知道</span>
+            <span class="desc" title="jk胡桃输入法">jk胡桃输入法</span>
+            <span class="price">8</span>
+          </div><div class="car-item">
+            <span class="name" title="猫撞撞">猫撞撞</span>
+            <span class="desc" title="情风">情风</span>
+            <span class="price">18.1</span>
+          </div><div class="car-item">
+            <span class="name" title="猫撞撞">猫撞撞</span>
+            <span class="desc" title="净雪阿狸">净雪阿狸</span>
+            <span class="price">10.4</span>
+          </div><div class="car-item">
+            <span class="name" title="大鱼">大鱼</span>
+            <span class="desc" title="岳山胡桃">岳山胡桃</span>
+            <span class="price">23.03</span>
+          </div><div class="car-item">
+            <span class="name" title="灯年">灯年</span>
+            <span class="desc" title="遣唐使胡桃">遣唐使胡桃</span>
+            <span class="price">16</span>
+          </div><div class="car-item">
+            <span class="name" title="水辰">水辰</span>
+            <span class="desc" title="胡桃">胡桃</span>
+            <span class="price">22.32</span>
+          </div><div class="car-item">
+            <span class="name" title="梦秦">梦秦</span>
+            <span class="desc" title="女警">女警</span>
+            <span class="price">13</span>
+          </div><div class="car-item">
+            <span class="name" title="雾日沉">雾日沉</span>
+            <span class="desc" title="球女">球女</span>
+            <span class="price">28</span>
+          </div><div class="car-item">
+            <span class="name" title="片片">片片</span>
+            <span class="desc" title="睡衣奶妈">睡衣奶妈</span>
+            <span class="price">15.8</span>
+          </div><div class="car-item">
+            <span class="name" title="14">14</span>
+            <span class="desc" title="格温原皮">格温原皮</span>
+            <span class="price">20</span>
+          </div><div class="car-item">
+            <span class="name" title="维安">维安</span>
+            <span class="desc" title="玉剑娜美">玉剑娜美</span>
+            <span class="price">16</span>
+          </div><div class="car-item">
+            <span class="name" title="kiyo">kiyo</span>
+            <span class="desc" title="睡衣璐璐">睡衣璐璐</span>
+            <span class="price">19.2</span>
+          </div><div class="car-item">
+            <span class="name" title="霍霍">霍霍</span>
+            <span class="desc" title="胡桃">胡桃</span>
+            <span class="price">12.5</span>
+          </div><div class="car-item">
+            <span class="name" title="白昼">白昼</span>
+            <span class="desc" title="小八">小八</span>
+            <span class="price">4.84</span>
+          </div><div class="car-item">
+            <span class="name" title="茶也子">茶也子</span>
+            <span class="desc" title="春桃">春桃</span>
+            <span class="price">23.84</span>
+          </div><div class="car-item">
+            <span class="name" title="GloriAsh">GloriAsh</span>
+            <span class="desc" title="第四波">第四波</span>
+            <span class="price">20</span>
+          </div><div class="car-item">
+            <span class="name" title="卷月">卷月</span>
+            <span class="desc" title="格温">格温</span>
+            <span class="price">12.8</span>
+          </div><div class="car-item">
+            <span class="name" title="小飞兔">小飞兔</span>
+            <span class="desc" title="ez悠米">ez悠米</span>
+            <span class="price">13.2</span>
+          </div><div class="car-item">
+            <span class="name" title="霜奶仙">霜奶仙</span>
+            <span class="desc" title="悠米输入法">悠米输入法</span>
+            <span class="price">19</span>
+          </div><div class="car-item">
+            <span class="name" title="青栾">青栾</span>
+            <span class="desc" title="顾清寒">顾清寒</span>
+            <span class="price">12.34</span>
+          </div><div class="car-item">
+            <span class="name" title="朝夕">朝夕</span>
+            <span class="desc" title="胡桃">胡桃</span>
+            <span class="price">15.96</span>
+          </div><div class="car-item">
+            <span class="name" title="GloriAsh">GloriAsh</span>
+            <span class="desc" title="第三波">第三波</span>
+            <span class="price">20</span>
+          </div><div class="car-item">
+            <span class="name" title="小羽入">小羽入</span>
+            <span class="desc" title="edg猫">edg猫</span>
+            <span class="price">18</span>
+          </div><div class="car-item">
+            <span class="name" title="饱嗝">饱嗝</span>
+            <span class="desc" title="格温">格温</span>
+            <span class="price">20.8</span>
+          </div><div class="car-item">
+            <span class="name" title="胖橘">胖橘</span>
+            <span class="desc" title="凯琴">凯琴</span>
+            <span class="price">31</span>
+          </div><div class="car-item">
+            <span class="name" title="理理">理理</span>
+            <span class="desc" title="霞洛">霞洛</span>
+            <span class="price">20.2</span>
+          </div><div class="car-item">
+            <span class="name" title="空折">空折</span>
+            <span class="desc" title="冰奶">冰奶</span>
+            <span class="price">30.8</span>
+          </div><div class="car-item">
+            <span class="name" title="桂鱼熊">桂鱼熊</span>
+            <span class="desc" title="金克斯">金克斯</span>
+            <span class="price">28</span>
+          </div><div class="car-item">
+            <span class="name" title="维安">维安</span>
+            <span class="desc" title="光明霞">光明霞</span>
+            <span class="price">19</span>
+          </div><div class="car-item">
+            <span class="name" title="14">14</span>
+            <span class="desc" title="卡莎">卡莎</span>
+            <span class="price">26</span>
+          </div><div class="car-item">
+            <span class="name" title="鱼骨头">鱼骨头</span>
+            <span class="desc" title="春晖拉克丝">春晖拉克丝</span>
+            <span class="price">9.2</span>
+          </div><div class="car-item">
+            <span class="name" title="胖橘">胖橘</span>
+            <span class="desc" title="吴e凡奶妈qq人">吴e凡奶妈qq人</span>
+            <span class="price">6.6</span>
+          </div><div class="car-item">
+            <span class="name" title="良良">良良</span>
+            <span class="desc" title="顾时夜">顾时夜</span>
+            <span class="price">11.6</span>
+          </div><div class="car-item">
+            <span class="name" title="小屁">小屁</span>
+            <span class="desc" title="jk胡桃">jk胡桃</span>
+            <span class="price">14.14</span>
+          </div><div class="car-item">
+            <span class="name" title="云知弦">云知弦</span>
+            <span class="desc" title="春桃笑胡桃">春桃笑胡桃</span>
+            <span class="price">13.12</span>
+          </div><div class="car-item">
+            <span class="name" title="大鱼">大鱼</span>
+            <span class="desc" title="顾清寒">顾清寒</span>
+            <span class="price">18.64</span>
+          </div><div class="car-item">
+            <span class="name" title="三川">三川</span>
+            <span class="desc" title="无尘狐狸">无尘狐狸</span>
+            <span class="price">11</span>
+          </div><div class="car-item">
+            <span class="name" title="14">14</span>
+            <span class="desc" title="女警">女警</span>
+            <span class="price">25</span>
+          </div><div class="car-item">
+            <span class="name" title="686">686</span>
+            <span class="desc" title="新年">新年</span>
+            <span class="price">15.5</span>
+          </div><div class="car-item">
+            <span class="name" title="阿果">阿果</span>
+            <span class="desc" title="情人节蜘蛛">情人节蜘蛛</span>
+            <span class="price">24.5</span>
+          </div><div class="car-item">
+            <span class="name" title="胖橘">胖橘</span>
+            <span class="desc" title="吴e凡奶妈">吴e凡奶妈</span>
+            <span class="price">33</span>
+          </div><div class="car-item">
+            <span class="name" title="雾日沉">雾日沉</span>
+            <span class="desc" title="小蛋糕楚雨荨">小蛋糕楚雨荨</span>
+            <span class="price">8.4</span>
+          </div><div class="car-item">
+            <span class="name" title="胖橘">胖橘</span>
+            <span class="desc" title="黄毛+猫猫">黄毛+猫猫</span>
+            <span class="price">33</span>
+          </div><div class="car-item">
+            <span class="name" title="雾日沉">雾日沉</span>
+            <span class="desc" title="阿狸">阿狸</span>
+            <span class="price">7.2</span>
+          </div><div class="car-item">
+            <span class="name" title="饱嗝">饱嗝</span>
+            <span class="desc" title="卡莎">卡莎</span>
+            <span class="price">20.8</span>
+          </div><div class="car-item">
+            <span class="name" title="灯灯">灯灯</span>
+            <span class="desc" title="永恩阿狸">永恩阿狸</span>
+            <span class="price">52</span>
+          </div><div class="car-item">
+            <span class="name" title="东山">东山</span>
+            <span class="desc" title="永恩阿狸">永恩阿狸</span>
+            <span class="price">23.5</span>
+          </div><div class="car-item">
+            <span class="name" title="胖橘">胖橘</span>
+            <span class="desc" title="霞洛">霞洛</span>
+            <span class="price">35</span>
+          </div><div class="car-item">
+            <span class="name" title="良良">良良</span>
+            <span class="desc" title="易遇">易遇</span>
+            <span class="price">11.6</span>
+          </div><div class="car-item">
+            <span class="name" title="良良">良良</span>
+            <span class="desc" title="夏萧因">夏萧因</span>
+            <span class="price">11.6</span>
+          </div><div class="car-item">
+            <span class="name" title="罐头">罐头</span>
+            <span class="desc" title="火男胡桃">火男胡桃</span>
+            <span class="price">10.62</span>
+          </div><div class="car-item">
+            <span class="name" title="安戈">安戈</span>
+            <span class="desc" title="唐风胡桃">唐风胡桃</span>
+            <span class="price">10.5</span>
+          </div><div class="car-item">
+            <span class="name" title="时荷">时荷</span>
+            <span class="desc" title="殷紫萍">殷紫萍</span>
+            <span class="price">13.86</span>
+          </div><div class="car-item">
+            <span class="name" title="槿十">槿十</span>
+            <span class="desc" title="小舞胡桃">小舞胡桃</span>
+            <span class="price">6.09</span>
+          </div><div class="car-item">
+            <span class="name" title="团子">团子</span>
+            <span class="desc" title="殷紫萍">殷紫萍</span>
+            <span class="price">19.74</span>
+          </div><div class="car-item">
+            <span class="name" title="夏沫">夏沫</span>
+            <span class="desc" title="胡桃横插">胡桃横插</span>
+            <span class="price">29.23</span>
+          </div><div class="car-item">
+            <span class="name" title="莽莽子">莽莽子</span>
+            <span class="desc" title="顾清寒">顾清寒</span>
+            <span class="price">17.67</span>
+          </div><div class="car-item">
+            <span class="name" title="不知道">不知道</span>
+            <span class="desc" title="永恩阿狸">永恩阿狸</span>
+            <span class="price">28.48</span>
+          </div><div class="car-item">
+            <span class="name" title="渺星">渺星</span>
+            <span class="desc" title="胡桃">胡桃</span>
+            <span class="price">8</span>
+          </div><div class="car-item">
+            <span class="name" title="？">？</span>
+            <span class="desc" title="佐伊">佐伊</span>
+            <span class="price">21</span>
+          </div><div class="car-item">
+            <span class="name" title="一等良田">一等良田</span>
+            <span class="desc" title="冰雪节璐璐">冰雪节璐璐</span>
+            <span class="price">17.5</span>
+          </div><div class="car-item">
+            <span class="name" title="胖橘">胖橘</span>
+            <span class="desc" title="永恩阿狸">永恩阿狸</span>
+            <span class="price">30.8</span>
+          </div><div class="car-item">
+            <span class="name" title="片片">片片</span>
+            <span class="desc" title="edg猫">edg猫</span>
+            <span class="price">13.3</span>
+          </div><div class="car-item">
+            <span class="name" title="小羽入">小羽入</span>
+            <span class="desc" title="奶妈">奶妈</span>
+            <span class="price">23.5</span>
+          </div><div class="car-item">
+            <span class="name" title="片片">片片</span>
+            <span class="desc" title="咖啡璐璐">咖啡璐璐</span>
+            <span class="price">15.8</span>
+          </div><div class="car-item">
+            <span class="name" title="？">？</span>
+            <span class="desc" title="龙风">龙风</span>
+            <span class="price">20</span>
+          </div><div class="car-item">
+            <span class="name" title="维安">维安</span>
+            <span class="desc" title="奶妈">奶妈</span>
+            <span class="price">15.8</span>
+          </div><div class="car-item">
+            <span class="name" title="？">？</span>
+            <span class="desc" title="阿狸">阿狸</span>
+            <span class="price">22.13</span>
+          </div><div class="car-item">
+            <span class="name" title="686">686</span>
+            <span class="desc" title="悠米">悠米</span>
+            <span class="price">28</span>
+          </div><div class="car-item">
+            <span class="name" title="胖橘">胖橘</span>
+            <span class="desc" title="球女+劫">球女+劫</span>
+            <span class="price">30.8</span>
+          </div><div class="car-item">
+            <span class="name" title="小羽入">小羽入</span>
+            <span class="desc" title="凯隐琴女">凯隐琴女</span>
+            <span class="price">22.5</span>
+          </div><div class="car-item">
+            <span class="name" title="香菜">香菜</span>
+            <span class="desc" title="EFLS兄妹">EFLS兄妹</span>
+            <span class="price">16</span>
+          </div><div class="car-item">
+            <span class="name" title="阿拉伯">阿拉伯</span>
+            <span class="desc" title="顾时夜">顾时夜</span>
+            <span class="price">17</span>
+          </div><div class="car-item">
+            <span class="name" title="小羊">小羊</span>
+            <span class="desc" title="顾清寒">顾清寒</span>
+            <span class="price">20</span>
+          </div><div class="car-item">
+            <span class="name" title="凤栖">凤栖</span>
+            <span class="desc" title="顾时夜">顾时夜</span>
+            <span class="price">58</span>
+          </div><div class="car-item">
+            <span class="name" title="饱嗝">饱嗝</span>
+            <span class="desc" title="火男胡桃">火男胡桃</span>
+            <span class="price">30.8</span>
+          </div><div class="car-item">
+            <span class="name" title="韶华">韶华</span>
+            <span class="desc" title="水娘">水娘</span>
+            <span class="price">12.29</span>
+          </div><div class="car-item">
+            <span class="name" title="胖橘">胖橘</span>
+            <span class="desc" title="阿卡丽卡莎">阿卡丽卡莎</span>
+            <span class="price">30.8</span>
+          </div><div class="car-item">
+            <span class="name" title="春日青">春日青</span>
+            <span class="desc" title="玉剑琴女">玉剑琴女</span>
+            <span class="price">23.3</span>
+          </div><div class="car-item">
+            <span class="name" title="686">686</span>
+            <span class="desc" title="金克斯璐璐">金克斯璐璐</span>
+            <span class="price">17.2</span>
+          </div><div class="car-item">
+            <span class="name" title="酸奶">酸奶</span>
+            <span class="desc" title="璐璐">璐璐</span>
+            <span class="price">13.3</span>
+          </div><div class="car-item">
+            <span class="name" title="空折">空折</span>
+            <span class="desc" title="娜美">娜美</span>
+            <span class="price">33.7</span>
+          </div><div class="car-item">
+            <span class="name" title="东山">东山</span>
+            <span class="desc" title="霞洛">霞洛</span>
+            <span class="price">27.1</span>
+          </div><div class="car-item">
+            <span class="name" title="空折">空折</span>
+            <span class="desc" title="女警">女警</span>
+            <span class="price">25.8</span>
+          </div><div class="car-item">
+            <span class="name" title="空折">空折</span>
+            <span class="desc" title="edg猫">edg猫</span>
+            <span class="price">20.8</span>
+          </div><div class="car-item">
+            <span class="name" title="理理">理理</span>
+            <span class="desc" title="璐璐">璐璐</span>
+            <span class="price">8.8</span>
+          </div><div class="car-item">
+            <span class="name" title="葵酉">葵酉</span>
+            <span class="desc" title="卡莎">卡莎</span>
+            <span class="price">21.5</span>
+          </div><div class="car-item">
+            <span class="name" title="饱嗝">饱嗝</span>
+            <span class="desc" title="奶妈">奶妈</span>
+            <span class="price">20.8</span>
+          </div><div class="car-item">
+            <span class="name" title="雾日沉">雾日沉</span>
+            <span class="desc" title="格温伊苏尔德">格温伊苏尔德</span>
+            <span class="price">11</span>
+          </div><div class="car-item">
+            <span class="name" title="雾日沉">雾日沉</span>
+            <span class="desc" title="凯隐琴女">凯隐琴女</span>
+            <span class="price">6.8</span>
+          </div><div class="car-item">
+            <span class="name" title="小鹿">小鹿</span>
+            <span class="desc" title="狗头猫猫">狗头猫猫</span>
+            <span class="price">21</span>
+          </div><div class="car-item">
+            <span class="name" title="梦秦">梦秦</span>
+            <span class="desc" title="玉剑奶妈">玉剑奶妈</span>
+            <span class="price">13</span>
+          </div><div class="car-item">
+            <span class="name" title="豆奶">豆奶</span>
+            <span class="desc" title="魔女阿狸">魔女阿狸</span>
+            <span class="price">15.5</span>
+          </div><div class="car-item">
+            <span class="name" title="葵酉">葵酉</span>
+            <span class="desc" title="女枪">女枪</span>
+            <span class="price">25</span>
+          </div><div class="car-item">
+            <span class="name" title="猫玖">猫玖</span>
+            <span class="desc" title="edg吴亦凡兄妹">edg吴亦凡兄妹</span>
+            <span class="price">12.5</span>
+          </div><div class="car-item">
+            <span class="name" title="686">686</span>
+            <span class="desc" title="龙琴">龙琴</span>
+            <span class="price">7.6</span>
+          </div><div class="car-item">
+            <span class="name" title="片片">片片</span>
+            <span class="desc" title="娜美">娜美</span>
+            <span class="price">15.8</span>
+          </div><div class="car-item">
+            <span class="name" title="理理">理理</span>
+            <span class="desc" title="金克斯璐璐">金克斯璐璐</span>
+            <span class="price">20.5</span>
+          </div><div class="car-item">
+            <span class="name" title="胖橘">胖橘</span>
+            <span class="desc" title="ez拉克丝">ez拉克丝</span>
+            <span class="price">33</span>
+          </div><div class="car-item">
+            <span class="name" title="小羽入">小羽入</span>
+            <span class="desc" title="格温">格温</span>
+            <span class="price">17.5</span>
+          </div><div class="car-item">
+            <span class="name" title="梦秦">梦秦</span>
+            <span class="desc" title="玉剑奶妈">玉剑奶妈</span>
+            <span class="price">13</span>
+          </div><div class="car-item">
+            <span class="name" title="尸体">尸体</span>
+            <span class="desc" title="永恩阿狸">永恩阿狸</span>
+            <span class="price">52.8</span>
+          </div><div class="car-item">
+            <span class="name" title="铱铱">铱铱</span>
+            <span class="desc" title="女警">女警</span>
+            <span class="price">26</span>
+          </div><div class="car-item">
+            <span class="name" title="糖">糖</span>
+            <span class="desc" title="edg猫">edg猫</span>
+            <span class="price">14.8</span>
+          </div><div class="car-item">
+            <span class="name" title="糖">糖</span>
+            <span class="desc" title="星守璐璐">星守璐璐</span>
+            <span class="price">14.8</span>
+          </div><div class="car-item">
+            <span class="name" title="理理">理理</span>
+            <span class="desc" title="小樱知世">小樱知世</span>
+            <span class="price">20</span>
+          </div><div class="car-item">
+            <span class="name" title="阿果">阿果</span>
+            <span class="desc" title="黎明使者奶妈">黎明使者奶妈</span>
+            <span class="price">20.8</span>
+          </div><div class="car-item">
+            <span class="name" title="杀蓝">杀蓝</span>
+            <span class="desc" title="拉克丝">拉克丝</span>
+            <span class="price">30.8</span>
+          </div><div class="car-item">
+            <span class="name" title="阿宿">阿宿</span>
+            <span class="desc" title="岳山胡桃">岳山胡桃</span>
+            <span class="price">14.8</span>
+          </div><div class="car-item">
+            <span class="name" title="白昼">白昼</span>
+            <span class="desc" title="乌萨奇qq人">乌萨奇qq人</span>
+            <span class="price">4.27</span>
+          </div><div class="car-item">
+            <span class="name" title="大鱼">大鱼</span>
+            <span class="desc" title="宁红夜">宁红夜</span>
+            <span class="price">16.68</span>
+          </div><div class="car-item">
+            <span class="name" title="杀蓝">杀蓝</span>
+            <span class="desc" title="胡桃">胡桃</span>
+            <span class="price">27.97</span>
+          </div><div class="car-item">
+            <span class="name" title="石榴">石榴</span>
+            <span class="desc" title="胡桃">胡桃</span>
+            <span class="price">16.17</span>
+          </div><div class="car-item">
+            <span class="name" title="草莓小面包">草莓小面包</span>
+            <span class="desc" title="黄桃">黄桃</span>
+            <span class="price">9.88</span>
+          </div><div class="car-item">
+            <span class="name" title="夏夏">夏夏</span>
+            <span class="desc" title="胡桃">胡桃</span>
+            <span class="price">13</span>
+          </div><div class="car-item">
+            <span class="name" title="韶华">韶华</span>
+            <span class="desc" title="火女">火女</span>
+            <span class="price">11.34</span>
+          </div><div class="car-item">
+            <span class="name" title="神晓">神晓</span>
+            <span class="desc" title="尘桃">尘桃</span>
+            <span class="price">27.05</span>
+          </div><div class="car-item">
+            <span class="name" title="白糖酥饼">白糖酥饼</span>
+            <span class="desc" title="殷紫萍">殷紫萍</span>
+            <span class="price">21.57</span>
+          </div><div class="car-item">
+            <span class="name" title="青定">青定</span>
+            <span class="desc" title="胡桃半身尾款">胡桃半身尾款</span>
+            <span class="price">7.85</span>
+          </div><div class="car-item">
+            <span class="name" title="chic">chic</span>
+            <span class="desc" title="火女">火女</span>
+            <span class="price">13.79</span>
+          </div><div class="car-item">
+            <span class="name" title="莳荷">莳荷</span>
+            <span class="desc" title="小舞胡桃">小舞胡桃</span>
+            <span class="price">15.07</span>
+          </div><div class="car-item">
+            <span class="name" title="聆瞳">聆瞳</span>
+            <span class="desc" title="沈妙">沈妙</span>
+            <span class="price">12</span>
+          </div><div class="car-item">
+            <span class="name" title="chic">chic</span>
+            <span class="desc" title="寒烟素顾清寒">寒烟素顾清寒</span>
+            <span class="price">14.34</span>
+          </div><div class="car-item">
+            <span class="name" title="chic">chic</span>
+            <span class="desc" title="香雪顾清寒">香雪顾清寒</span>
+            <span class="price">15.05</span>
+          </div><div class="car-item">
+            <span class="name" title="渺车">渺车</span>
+            <span class="desc" title="樱桃定金">樱桃定金</span>
+            <span class="price">10.47</span>
+          </div><div class="car-item">
+            <span class="name" title="肉末茄子">肉末茄子</span>
+            <span class="desc" title="胡桃">胡桃</span>
+            <span class="price">14.75</span>
+          </div><div class="car-item">
+            <span class="name" title="不知道">不知道</span>
+            <span class="desc" title="殷紫萍">殷紫萍</span>
+            <span class="price">11.2</span>
+          </div><div class="car-item">
+            <span class="name" title="可可">可可</span>
+            <span class="desc" title="日道桃">日道桃</span>
+            <span class="price">16.45</span>
+          </div><div class="car-item">
+            <span class="name" title="小喇喇">小喇喇</span>
+            <span class="desc" title="岳桃">岳桃</span>
+            <span class="price">32</span>
+          </div><div class="car-item">
+            <span class="name" title="小莲">小莲</span>
+            <span class="desc" title="胡桃红皮">胡桃红皮</span>
+            <span class="price">6.19</span>
+          </div><div class="car-item">
+            <span class="name" title="小羽入">小羽入</span>
+            <span class="desc" title="情人节女警">情人节女警</span>
+            <span class="price">16.5</span>
+          </div><div class="car-item">
+            <span class="name" title="维安">维安</span>
+            <span class="desc" title="情风">情风</span>
+            <span class="price">15.8</span>
+          </div><div class="car-item">
+            <span class="name" title="小羽入">小羽入</span>
+            <span class="desc" title="玉剑奶妈">玉剑奶妈</span>
+            <span class="price">29</span>
+          </div><div class="car-item">
+            <span class="name" title="豆奶">豆奶</span>
+            <span class="desc" title="格温">格温</span>
+            <span class="price">15.5</span>
+          </div><div class="car-item">
+            <span class="name" title="686">686</span>
+            <span class="desc" title="咖啡璐璐格温">咖啡璐璐格温</span>
+            <span class="price">8.8</span>
+          </div><div class="car-item">
+            <span class="name" title="686">686</span>
+            <span class="desc" title="ez拉克丝">ez拉克丝</span>
+            <span class="price">10</span>
+          </div><div class="car-item">
+            <span class="name" title="尾">尾</span>
+            <span class="desc" title="心理学家">心理学家</span>
+            <span class="price">13</span>
+          </div><div class="car-item">
+            <span class="name" title="允">允</span>
+            <span class="desc" title="胡桃3层不重叠">胡桃3层不重叠</span>
+            <span class="price">1.44</span>
+          </div><div class="car-item">
+            <span class="name" title="理理">理理</span>
+            <span class="desc" title="顾清寒">顾清寒</span>
+            <span class="price">12</span>
+          </div><div class="car-item">
+            <span class="name" title="寸谷">寸谷</span>
+            <span class="desc" title="火狗">火狗</span>
+            <span class="price">7.12</span>
+          </div><div class="car-item">
+            <span class="name" title="霍霍">霍霍</span>
+            <span class="desc" title="迦南">迦南</span>
+            <span class="price">14</span>
+          </div><div class="car-item">
+            <span class="name" title="小羽入">小羽入</span>
+            <span class="desc" title="吴亦凡奶妈">吴亦凡奶妈</span>
+            <span class="price">33.5</span>
+          </div><div class="car-item">
+            <span class="name" title="片片">片片</span>
+            <span class="desc" title="星守发条">星守发条</span>
+            <span class="price">19.8</span>
+          </div><div class="car-item">
+            <span class="name" title="小羽入">小羽入</span>
+            <span class="desc" title="卡莎">卡莎</span>
+            <span class="price">19.75</span>
+          </div><div class="car-item">
+            <span class="name" title="小梨子">小梨子</span>
+            <span class="desc" title="花仙子拉克丝">花仙子拉克丝</span>
+            <span class="price">17</span>
+          </div><div class="car-item">
+            <span class="name" title="也宜">也宜</span>
+            <span class="desc" title="ez拉克丝">ez拉克丝</span>
+            <span class="price">26</span>
+          </div><div class="car-item">
+            <span class="name" title="饱嗝">饱嗝</span>
+            <span class="desc" title="灵魂莲华吴亦凡兄妹">灵魂莲华吴亦凡兄妹</span>
+            <span class="price">31</span>
+          </div><div class="car-item">
+            <span class="name" title="小茄子">小茄子</span>
+            <span class="desc" title="玉玲珑红皮">玉玲珑红皮</span>
+            <span class="price">18.8</span>
+          </div><div class="car-item">
+            <span class="name" title="北齐后主">北齐后主</span>
+            <span class="desc" title="顾时夜">顾时夜</span>
+            <span class="price">20.8</span>
+          </div><div class="car-item">
+            <span class="name" title="霍霍">霍霍</span>
+            <span class="desc" title="sage">sage</span>
+            <span class="price">19.89</span>
+          </div><div class="car-item">
+            <span class="name" title="小羽入">小羽入</span>
+            <span class="desc" title="冰女胡桃">冰女胡桃</span>
+            <span class="price">34.4</span>
+          </div><div class="car-item">
+            <span class="name" title="小茄子">小茄子</span>
+            <span class="desc" title="殷紫萍冠军皮">殷紫萍冠军皮</span>
+            <span class="price">16.55</span>
+          </div><div class="car-item">
+            <span class="name" title="刀哥">刀哥</span>
+            <span class="desc" title="灵莲吴e凡兄妹">灵莲吴e凡兄妹</span>
+            <span class="price">31.5</span>
+          </div><div class="car-item">
+            <span class="name" title="小羽入">小羽入</span>
+            <span class="desc" title="拉露恩">拉露恩</span>
+            <span class="price">13.3</span>
+          </div><div class="car-item">
+            <span class="name" title="土豆">土豆</span>
+            <span class="desc" title="永恩阿狸">永恩阿狸</span>
+            <span class="price">59</span>
+          </div><div class="car-item">
+            <span class="name" title="芙猫猫">芙猫猫</span>
+            <span class="desc" title="咖啡甜心奶妈">咖啡甜心奶妈</span>
+            <span class="price">15.6</span>
+          </div><div class="car-item">
+            <span class="name" title="小梨子">小梨子</span>
+            <span class="desc" title="睡衣奶妈">睡衣奶妈</span>
+            <span class="price">15.5</span>
+          </div><div class="car-item">
+            <span class="name" title="小羽入">小羽入</span>
+            <span class="desc" title="永恩阿狸">永恩阿狸</span>
+            <span class="price">16</span>
+          </div><div class="car-item">
+            <span class="name" title="灯灯">灯灯</span>
+            <span class="desc" title="阿狸">阿狸</span>
+            <span class="price">25.8</span>
+          </div><div class="car-item">
+            <span class="name" title="胖橘">胖橘</span>
+            <span class="desc" title="青花瓷ezlux">青花瓷ezlux</span>
+            <span class="price">30.8</span>
+          </div><div class="car-item">
+            <span class="name" title="空折月">空折月</span>
+            <span class="desc" title="双子">双子</span>
+            <span class="price">30.8</span>
+          </div><div class="car-item">
+            <span class="name" title="梦秦">梦秦</span>
+            <span class="desc" title="kda卡莎">kda卡莎</span>
+            <span class="price">12.8</span>
+          </div></div></div>
+      <div class="tab-panel" id="mk-qita"><div class="door-grid"><div class="door-item"><span class="name">文夏直购打包 9.21</span><span class="price">19.8</span></div><div class="door-item"><span class="name">easy批量打标</span><span class="price">168</span></div><div class="door-item"><span class="name">cat批量+分类</span><span class="price">368</span></div><div class="door-item"><span class="name">meiyuan全套</span><span class="price">428</span></div><div class="door-item"><span class="name">月摘星扭蛋</span><span class="price">30</span></div><div class="door-item"><span class="name">今日宜扭蛋</span><span class="price">100</span></div><div class="door-item"><span class="name">不理猫扭蛋</span><span class="price">45</span></div><div class="door-item"><span class="name">蓝兔直购</span><span class="price">15</span></div></div></div>
     </div>
   </div>
 </div>
@@ -792,72 +2113,6 @@
     }
   });
 
-  // ================= 约单须知折叠与联动逻辑 =================
-  const guideData = {
-    'bx-jianghu': {
-      name: '竖版江湖草',
-      text: '【竖版江湖草】一键出图，除写错字外不予重写。草体分字，部分字草体是能认出是什么字的。大多数字都是和现代简体汉字是两模两样哦，请考虑清楚再下单！出图后婉拒以：认不出来/不像/有点像别的某字等理由要求重写和与退款。竖直排版。'
-    },
-    'bx-zhengchang': {
-      name: '竖版正常体',
-      text: '【竖版正常体】一键出图，除写错字外不予重写。因部分字最后一笔原因可能无法实现小尾巴。竖直排版。'
-    },
-    'bx-hengban': {
-      name: '横版系列',
-      text: '【横版系列】一键出图，除写错字外不予重写。可能会根据文字内容调整行草书写和简繁书写，如果不接受请在登记时提前注明。排版会略有错位。'
-    }
-  };
-
-  const guideWrapper = document.getElementById('guide-wrapper');
-  const guideToggleBtn = document.getElementById('guide-toggle-btn');
-  const guideContent = document.getElementById('guide-content');
-
-  // 折叠面板开关
-  guideToggleBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    guideWrapper.classList.toggle('is-open');
-    guideToggleBtn.textContent = guideWrapper.classList.contains('is-open') ? '收起约单须知' : '展开约单须知';
-  });
-
-  // 更新折叠面板内容
-  function updateGuideContent(targetId) {
-    const data = guideData[targetId];
-    
-    // 如果不在指定的三个分类里，直接隐藏整个折叠面板
-    if (!data) {
-      guideWrapper.style.display = 'none';
-      return;
-    }
-
-    // 如果在指定的分类里，显示面板并重置为收起状态
-    guideWrapper.style.display = 'block';
-    guideWrapper.classList.remove('is-open');
-    guideToggleBtn.textContent = '展开约单须知';
-
-    // 动态注入内容
-    let html = `
-      <div class="guide-item">
-        <div class="guide-title">1. 笔刷粗细说明</div>
-        <div class="guide-text">
-          <button class="guide-btn-link" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/KqGl/1000X1000/%E5%86%99%E5%AD%97%E5%88%B7%E7%B2%97%E7%BB%86.png', '笔刷粗细示例')">【笔刷粗细说明】点我查看示例</button>
-        </div>
-      </div>
-      <div class="guide-item">
-        <div class="guide-title">2. 红线粗细说明</div>
-        <div class="guide-text">
-          <button class="guide-btn-link" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/a6bO/1000X1000/%E7%BA%A2%E7%BA%BF%E7%B2%97%E7%BB%86.png', '红线粗细示例')">【红线粗细说明】点我查看示例</button>
-        </div>
-      </div>
-      <div class="guide-item">
-        <div class="guide-title">3. 约单说明</div>
-        <div class="guide-text">${data.text}</div>
-      </div>
-    `;
-    
-    guideContent.innerHTML = html;
-  }
-  // =========================================================
-
   // Tab 标签切换
   document.querySelectorAll('.tab-btn[data-target]').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -866,11 +2121,6 @@
       parentBoard.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
       btn.classList.add('active');
       document.getElementById(btn.dataset.target).classList.add('active');
-
-      // 联动检查当前分类是否有须知，没有则隐藏，有则显示
-      if (parentBoard.id === 'page-banxie') {
-        updateGuideContent(btn.dataset.target);
-      }
     });
   });
 
@@ -885,6 +2135,31 @@
         const container = document.getElementById(id);
         let html = '';
         
+        if (data.guideText) {
+          html += `
+            <div class="guide-collapse-wrapper" style="margin-bottom: 2rem; display: block;">
+              <div class="guide-content">
+                <div class="guide-item">
+                  <div class="guide-title">1. 笔刷粗细说明</div>
+                  <div class="guide-text">
+                    <button class="guide-btn-link" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/KqGl/1000X1000/%E5%86%99%E5%AD%97%E5%88%B7%E7%B2%97%E7%BB%86.png', '笔刷粗细示例')">【笔刷粗细说明】点我查看示例</button>
+                  </div>
+                </div>
+                <div class="guide-item">
+                  <div class="guide-title">2. 红线粗细说明</div>
+                  <div class="guide-text">
+                    <button class="guide-btn-link" onclick="openModal('https://s1.tupianyun.cn/autoupload/nj2md/20261108/a6bO/1000X1000/%E7%BA%A2%E7%BA%BF%E7%B2%97%E7%BB%86.png', '红线粗细示例')">【红线粗细说明】点我查看示例</button>
+                  </div>
+                </div>
+                <div class="guide-item">
+                  <div class="guide-title">3. 约单说明</div>
+                  <div class="guide-text">${data.guideText}</div>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+
         if (data.desc) {
           html += `<div class="section-note" style="text-align:center; margin-bottom: 2rem; color: var(--gold);">${data.desc}</div>`;
         }
@@ -900,7 +2175,7 @@
         }
 
         if (data.payImg || (data.payLink && data.payLink !== "#") || (data.regLink && data.regLink !== "#")) {
-          html += `<div class="action-btns">`;
+          html += `<div class="action-btns btn-row">`; // 添加 btn-row 确保并排
           if (data.payImg) {
             html += `<button class="action-btn pay-code-btn" data-img="${data.payImg}">查看微信收款码</button>`;
           }
@@ -926,9 +2201,6 @@
       renderBanxie('bx-lianbi', window.banxieData.lianbi);
       renderBanxie('bx-fengge', window.banxieData.fengge);
       renderBanxie('bx-manghe', window.banxieData.manghe);
-
-      // 初始化默认第一个分类的须知状态
-      updateGuideContent('bx-jianghu');
 
       // ============ 2. 加载素材贩售数据 ============
       const sucaiRes = await fetch('sucai.json');
@@ -1085,5 +2357,6 @@
     }
   });
 </script>
+
 </body>
 </html>
